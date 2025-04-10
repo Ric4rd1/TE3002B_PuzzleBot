@@ -1,0 +1,18 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/diegos/TE3002B_PuzzleBot/install/puzzlebot_gazebo/lib/python3.10/site-packages",
+        "/home/diegos/TE3002B_PuzzleBot/install/puzzlebot_description/lib/python3.10/site-packages",
+        "/home/diegos/TE3002B_PuzzleBot/install/mobile_robotics/lib/python3.10/site-packages",
+        "/home/diegos/uros_ws/install/micro_ros_msgs/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/diegos/TE3002B_PuzzleBot/install/puzzlebot_gazebo/lib/python3.10/site-packages",
+        "/home/diegos/TE3002B_PuzzleBot/install/puzzlebot_description/lib/python3.10/site-packages",
+        "/home/diegos/TE3002B_PuzzleBot/install/mobile_robotics/lib/python3.10/site-packages",
+        "/home/diegos/uros_ws/install/micro_ros_msgs/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}

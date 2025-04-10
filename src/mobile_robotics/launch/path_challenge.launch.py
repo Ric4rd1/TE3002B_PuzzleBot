@@ -24,9 +24,7 @@ def generate_launch_description():
         executable='controller_points', 
         output='screen', 
         emulate_tty=True, 
-        parameters=[ 
-            {'use_sim_time': True}, 
-        ] 
+        parameters=[config] 
     ) 
     ld = LaunchDescription([path_generator, controller_points]) 
 
