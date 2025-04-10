@@ -1,0 +1,9 @@
+path_generator:
+  ros__parameters:
+    use_sim_time: True
+    point_1: [0.5, 0.5]
+    point_2: [0.0, 0.5]
+    point_3: [0.5, 0.0]
+    point_4: [0.0, 0.0]
+    linear_vel: 0.2
+    angular_vel: 0.2

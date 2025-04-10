@@ -13,6 +13,7 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'), glob(os.path.join('launch', '*launch.[pxy][yma]*'))), 
+        (os.path.join('share', package_name, 'config'), glob(os.path.join('config', '*.[yma]*'))),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -29,6 +30,8 @@ setup(
             'move_forward_distance = mobile_robotics.move_forward_distance:main',
             'move_agle_given = mobile_robotics.move_angle_given:main',
             'move_square = mobile_robotics.move_square:main',
+            'controller_points = mobile_robotics.controller_points:main',
+            'path_generator = mobile_robotics.path_generator:main',
         ],
     },
 )
