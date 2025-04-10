@@ -1,0 +1,41 @@
+running develop
+running egg_info
+writing puzzlebot_description.egg-info/PKG-INFO
+writing dependency_links to puzzlebot_description.egg-info/dependency_links.txt
+writing entry points to puzzlebot_description.egg-info/entry_points.txt
+writing requirements to puzzlebot_description.egg-info/requires.txt
+writing top-level names to puzzlebot_description.egg-info/top_level.txt
+reading manifest file 'puzzlebot_description.egg-info/SOURCES.txt'
+writing manifest file 'puzzlebot_description.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/python3.10/site-packages/puzzlebot-description.egg-link (link to .)
+Installing joint_state_publisher script to /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/puzzlebot_description
+
+Installed /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description
+running symlink_data
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/resource/puzzlebot_description -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/ament_index/resource_index/packages
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/package.xml -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/launch/robot_state_publisher_launch.py -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/launch
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/rviz/puzzlebot_desc.rviz -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/rviz
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_misc/macros.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_misc
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_misc/materials.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_misc
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_mechanical/puzzlebot_jetson_base.urdf.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_mechanical
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_mechanical/puzzlebot_jetson_lidar_base.urdf.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_mechanical
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_mechanical/puzzlebot_hacker_base.urdf.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_mechanical
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_sensors/laser_camera_bracket.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_sensors
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_sensors/lidar.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_sensors
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_control/gazebo_control.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_control
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_robots/puzzlebot_jetson_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_robots/puzzlebot_hacker_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_robots/puzzlebot_jetson_lidar_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_robots/hacker_ed/parameters_hacker_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots/hacker_ed
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_robots/jetson_lidar_ed/parameters_jetson_lidar_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots/jetson_lidar_ed
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_robots/jetson_ed/parameters_jetson_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots/jetson_ed
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/wheels/Puzzlebot_Wheel.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/wheels
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/wheels/Puzzlebot_Caster_Wheel.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/wheels
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/misc/NVIDIA_Jetson.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/misc
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/misc/DC_Motor.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/misc
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/bases/Puzzlebot_Jetson_Lidar_Edition_Base.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/bases
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/bases/Puzzlebot_Hacker_Editon_Base.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/bases
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/sensors/Laser_Camera_Bracket.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/sensors
+symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/sensors/RPLidar.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/sensors

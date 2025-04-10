@@ -1,0 +1,25 @@
+[1.681s] Invoking command in '/home/ricard/ros2_ws_puzzlebot/src/mobile_robotics': PYTHONPATH=/home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/mobile_robotics build --build-base /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build install --record /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/install.log --single-version-externally-managed install_data
+[2.007s] running egg_info
+[2.008s] writing ../../build/mobile_robotics/mobile_robotics.egg-info/PKG-INFO
+[2.009s] writing dependency_links to ../../build/mobile_robotics/mobile_robotics.egg-info/dependency_links.txt
+[2.009s] writing entry points to ../../build/mobile_robotics/mobile_robotics.egg-info/entry_points.txt
+[2.009s] writing requirements to ../../build/mobile_robotics/mobile_robotics.egg-info/requires.txt
+[2.009s] writing top-level names to ../../build/mobile_robotics/mobile_robotics.egg-info/top_level.txt
+[2.012s] reading manifest file '../../build/mobile_robotics/mobile_robotics.egg-info/SOURCES.txt'
+[2.013s] writing manifest file '../../build/mobile_robotics/mobile_robotics.egg-info/SOURCES.txt'
+[2.013s] running build
+[2.014s] running build_py
+[2.014s] copying mobile_robotics/move_forward.py -> /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build/lib/mobile_robotics
+[2.014s] running install
+[2.015s] running install_lib
+[2.018s] copying /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build/lib/mobile_robotics/move_forward.py -> /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics
+[2.019s] byte-compiling /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics/move_forward.py to move_forward.cpython-310.pyc
+[2.020s] running install_data
+[2.020s] running install_egg_info
+[2.022s] removing '/home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics-0.0.0-py3.10.egg-info' (and everything under it)
+[2.022s] Copying ../../build/mobile_robotics/mobile_robotics.egg-info to /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics-0.0.0-py3.10.egg-info
+[2.024s] running install_scripts
+[2.052s] Installing pub_sub_with_classes script to /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/mobile_robotics
+[2.052s] Installing test_node script to /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/mobile_robotics
+[2.052s] writing list of installed files to '/home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/install.log'
+[2.104s] Invoked command in '/home/ricard/ros2_ws_puzzlebot/src/mobile_robotics' returned '0': PYTHONPATH=/home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/mobile_robotics build --build-base /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build install --record /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/install.log --single-version-externally-managed install_data

@@ -1,0 +1,23 @@
+[1.805s] Invoking command in '/home/ricard/ros2_ws_puzzlebot/build/mobile_robotics': PYTHONPATH=/home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build --no-deps symlink_data --force
+[2.208s] running develop
+[2.452s] running egg_info
+[2.452s] writing mobile_robotics.egg-info/PKG-INFO
+[2.453s] writing dependency_links to mobile_robotics.egg-info/dependency_links.txt
+[2.454s] writing entry points to mobile_robotics.egg-info/entry_points.txt
+[2.454s] writing requirements to mobile_robotics.egg-info/requires.txt
+[2.454s] writing top-level names to mobile_robotics.egg-info/top_level.txt
+[2.457s] reading manifest file 'mobile_robotics.egg-info/SOURCES.txt'
+[2.458s] writing manifest file 'mobile_robotics.egg-info/SOURCES.txt'
+[2.461s] running build_ext
+[2.461s] Creating /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile-robotics.egg-link (link to .)
+[2.463s] Installing move_forward script to /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/mobile_robotics
+[2.464s] Installing move_forward_distance script to /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/mobile_robotics
+[2.464s] Installing pub_sub_with_classes script to /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/mobile_robotics
+[2.465s] Installing test_node script to /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/mobile_robotics
+[2.465s] 
+[2.465s] Installed /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics
+[2.465s] running symlink_data
+[2.465s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/resource/mobile_robotics -> /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/share/ament_index/resource_index/packages
+[2.465s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/package.xml -> /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/share/mobile_robotics
+[2.466s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/launch/move_forward.launch.py -> /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/share/mobile_robotics/launch
+[2.549s] Invoked command in '/home/ricard/ros2_ws_puzzlebot/build/mobile_robotics' returned '0': PYTHONPATH=/home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build --no-deps symlink_data --force

@@ -1,0 +1,79 @@
+[0.963s] Invoking command in '/home/ricard/ros2_ws_puzzlebot/src/puzzlebot_description': PYTHONPATH=/home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/puzzlebot_description build --build-base /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/build install --record /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/install.log --single-version-externally-managed install_data
+[1.223s] running egg_info
+[1.223s] creating ../../build/puzzlebot_description/puzzlebot_description.egg-info
+[1.223s] writing ../../build/puzzlebot_description/puzzlebot_description.egg-info/PKG-INFO
+[1.224s] writing dependency_links to ../../build/puzzlebot_description/puzzlebot_description.egg-info/dependency_links.txt
+[1.224s] writing entry points to ../../build/puzzlebot_description/puzzlebot_description.egg-info/entry_points.txt
+[1.224s] writing requirements to ../../build/puzzlebot_description/puzzlebot_description.egg-info/requires.txt
+[1.224s] writing top-level names to ../../build/puzzlebot_description/puzzlebot_description.egg-info/top_level.txt
+[1.224s] writing manifest file '../../build/puzzlebot_description/puzzlebot_description.egg-info/SOURCES.txt'
+[1.225s] reading manifest file '../../build/puzzlebot_description/puzzlebot_description.egg-info/SOURCES.txt'
+[1.226s] adding license file 'LICENSE'
+[1.226s] writing manifest file '../../build/puzzlebot_description/puzzlebot_description.egg-info/SOURCES.txt'
+[1.227s] running build
+[1.227s] running build_py
+[1.227s] creating /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/build
+[1.227s] creating /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/build/lib
+[1.227s] creating /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/build/lib/puzzlebot_description
+[1.227s] copying puzzlebot_description/__init__.py -> /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/build/lib/puzzlebot_description
+[1.227s] copying puzzlebot_description/joint_state_publisher.py -> /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/build/lib/puzzlebot_description
+[1.228s] running install
+[1.228s] running install_lib
+[1.228s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/python3.10/site-packages/puzzlebot_description
+[1.228s] copying /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/build/lib/puzzlebot_description/__init__.py -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/python3.10/site-packages/puzzlebot_description
+[1.229s] copying /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/build/lib/puzzlebot_description/joint_state_publisher.py -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/python3.10/site-packages/puzzlebot_description
+[1.229s] byte-compiling /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/python3.10/site-packages/puzzlebot_description/__init__.py to __init__.cpython-310.pyc
+[1.229s] byte-compiling /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/python3.10/site-packages/puzzlebot_description/joint_state_publisher.py to joint_state_publisher.cpython-310.pyc
+[1.229s] running install_data
+[1.230s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/ament_index
+[1.230s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/ament_index/resource_index
+[1.230s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/ament_index/resource_index/packages
+[1.230s] copying resource/puzzlebot_description -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/ament_index/resource_index/packages
+[1.231s] copying package.xml -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description
+[1.231s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/launch
+[1.231s] copying launch/robot_state_publisher_launch.py -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/launch
+[1.231s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/config
+[1.231s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/rviz
+[1.231s] copying rviz/puzzlebot_desc.rviz -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/rviz
+[1.232s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf
+[1.232s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_misc
+[1.232s] copying urdf/mcr2_misc/macros.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_misc
+[1.232s] copying urdf/mcr2_misc/materials.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_misc
+[1.233s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_mechanical
+[1.233s] copying urdf/mcr2_mechanical/puzzlebot_jetson_base.urdf.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_mechanical
+[1.233s] copying urdf/mcr2_mechanical/puzzlebot_jetson_lidar_base.urdf.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_mechanical
+[1.233s] copying urdf/mcr2_mechanical/puzzlebot_hacker_base.urdf.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_mechanical
+[1.233s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_sensors
+[1.234s] copying urdf/mcr2_sensors/laser_camera_bracket.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_sensors
+[1.234s] copying urdf/mcr2_sensors/lidar.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_sensors
+[1.234s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_control
+[1.234s] copying urdf/mcr2_control/gazebo_control.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_control
+[1.235s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots
+[1.235s] copying urdf/mcr2_robots/puzzlebot_jetson_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots
+[1.235s] copying urdf/mcr2_robots/puzzlebot_hacker_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots
+[1.235s] copying urdf/mcr2_robots/puzzlebot_jetson_lidar_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots
+[1.235s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots/hacker_ed
+[1.235s] copying urdf/mcr2_robots/hacker_ed/parameters_hacker_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots/hacker_ed
+[1.235s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots/jetson_lidar_ed
+[1.236s] copying urdf/mcr2_robots/jetson_lidar_ed/parameters_jetson_lidar_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots/jetson_lidar_ed
+[1.236s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots/jetson_ed
+[1.236s] copying urdf/mcr2_robots/jetson_ed/parameters_jetson_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots/jetson_ed
+[1.236s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes
+[1.236s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/wheels
+[1.236s] copying meshes/wheels/Puzzlebot_Wheel.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/wheels
+[1.236s] copying meshes/wheels/Puzzlebot_Caster_Wheel.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/wheels
+[1.237s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/misc
+[1.237s] copying meshes/misc/NVIDIA_Jetson.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/misc
+[1.237s] copying meshes/misc/DC_Motor.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/misc
+[1.237s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/bases
+[1.238s] copying meshes/bases/Puzzlebot_Jetson_Lidar_Edition_Base.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/bases
+[1.238s] copying meshes/bases/Puzzlebot_Hacker_Editon_Base.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/bases
+[1.238s] creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/sensors
+[1.238s] copying meshes/sensors/Laser_Camera_Bracket.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/sensors
+[1.239s] copying meshes/sensors/RPLidar.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/sensors
+[1.239s] running install_egg_info
+[1.239s] Copying ../../build/puzzlebot_description/puzzlebot_description.egg-info to /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/python3.10/site-packages/puzzlebot_description-0.0.0-py3.10.egg-info
+[1.240s] running install_scripts
+[1.256s] Installing joint_state_publisher script to /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/puzzlebot_description
+[1.256s] writing list of installed files to '/home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/install.log'
+[1.277s] Invoked command in '/home/ricard/ros2_ws_puzzlebot/src/puzzlebot_description' returned '0': PYTHONPATH=/home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/puzzlebot_description build --build-base /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/build install --record /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/install.log --single-version-externally-managed install_data

@@ -1,0 +1,49 @@
+[1.886s] Invoking command in '/home/ricard/ros2_ws_puzzlebot/build/mobile_robotics': PYTHONPATH=/home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build
+[2.295s] running develop
+[2.546s] Removing /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile-robotics.egg-link (link to .)
+[2.623s] Invoked command in '/home/ricard/ros2_ws_puzzlebot/build/mobile_robotics' returned '0': PYTHONPATH=/home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build
+[2.626s] Invoking command in '/home/ricard/ros2_ws_puzzlebot/src/mobile_robotics': PYTHONPATH=/home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/mobile_robotics build --build-base /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build install --record /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/install.log --single-version-externally-managed install_data --force
+[2.990s] running egg_info
+[2.991s] writing ../../build/mobile_robotics/mobile_robotics.egg-info/PKG-INFO
+[2.992s] writing dependency_links to ../../build/mobile_robotics/mobile_robotics.egg-info/dependency_links.txt
+[2.992s] writing entry points to ../../build/mobile_robotics/mobile_robotics.egg-info/entry_points.txt
+[2.992s] writing requirements to ../../build/mobile_robotics/mobile_robotics.egg-info/requires.txt
+[2.993s] writing top-level names to ../../build/mobile_robotics/mobile_robotics.egg-info/top_level.txt
+[2.996s] reading manifest file '../../build/mobile_robotics/mobile_robotics.egg-info/SOURCES.txt'
+[2.997s] writing manifest file '../../build/mobile_robotics/mobile_robotics.egg-info/SOURCES.txt'
+[2.997s] running build
+[2.998s] running build_py
+[2.999s] copying mobile_robotics/move_forward_distance.py -> /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build/lib/mobile_robotics
+[2.999s] copying mobile_robotics/move_angle_given.py -> /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build/lib/mobile_robotics
+[2.999s] copying mobile_robotics/move_square.py -> /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build/lib/mobile_robotics
+[3.000s] running install
+[3.000s] running install_lib
+[3.003s] creating /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics
+[3.003s] copying /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build/lib/mobile_robotics/move_forward.py -> /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics
+[3.003s] copying /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build/lib/mobile_robotics/test_node.py -> /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics
+[3.004s] copying /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build/lib/mobile_robotics/__init__.py -> /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics
+[3.004s] copying /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build/lib/mobile_robotics/move_forward_distance.py -> /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics
+[3.004s] copying /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build/lib/mobile_robotics/pub_sub_with_classes.py -> /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics
+[3.005s] copying /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build/lib/mobile_robotics/move_angle_given.py -> /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics
+[3.005s] copying /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build/lib/mobile_robotics/move_square.py -> /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics
+[3.006s] byte-compiling /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics/move_forward.py to move_forward.cpython-310.pyc
+[3.007s] byte-compiling /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics/test_node.py to test_node.cpython-310.pyc
+[3.008s] byte-compiling /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics/__init__.py to __init__.cpython-310.pyc
+[3.008s] byte-compiling /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics/move_forward_distance.py to move_forward_distance.cpython-310.pyc
+[3.009s] byte-compiling /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics/pub_sub_with_classes.py to pub_sub_with_classes.cpython-310.pyc
+[3.010s] byte-compiling /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics/move_angle_given.py to move_angle_given.cpython-310.pyc
+[3.010s] byte-compiling /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics/move_square.py to move_square.cpython-310.pyc
+[3.011s] running install_data
+[3.011s] copying resource/mobile_robotics -> /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/share/ament_index/resource_index/packages
+[3.011s] copying package.xml -> /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/share/mobile_robotics
+[3.012s] copying launch/move_forward.launch.py -> /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/share/mobile_robotics/launch
+[3.013s] running install_egg_info
+[3.015s] Copying ../../build/mobile_robotics/mobile_robotics.egg-info to /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics-0.0.0-py3.10.egg-info
+[3.017s] running install_scripts
+[3.050s] Installing move_agle_given script to /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/mobile_robotics
+[3.050s] Installing move_forward script to /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/mobile_robotics
+[3.051s] Installing move_forward_distance script to /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/mobile_robotics
+[3.051s] Installing pub_sub_with_classes script to /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/mobile_robotics
+[3.051s] Installing test_node script to /home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/mobile_robotics
+[3.052s] writing list of installed files to '/home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/install.log'
+[3.121s] Invoked command in '/home/ricard/ros2_ws_puzzlebot/src/mobile_robotics' returned '0': PYTHONPATH=/home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/mobile_robotics build --build-base /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/build install --record /home/ricard/ros2_ws_puzzlebot/build/mobile_robotics/install.log --single-version-externally-managed install_data --force

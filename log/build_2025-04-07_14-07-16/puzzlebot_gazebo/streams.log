@@ -1,0 +1,22 @@
+[1.167s] Invoking command in '/home/ricard/ros2_ws_puzzlebot/src/puzzlebot_gazebo': PYTHONPATH=/home/ricard/ros2_ws_puzzlebot/build/puzzlebot_gazebo/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ricard/ros2_ws_puzzlebot/install/puzzlebot_gazebo/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/puzzlebot_gazebo build --build-base /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_gazebo/build install --record /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_gazebo/install.log --single-version-externally-managed install_data
+[1.416s] running egg_info
+[1.417s] writing ../../build/puzzlebot_gazebo/puzzlebot_gazebo.egg-info/PKG-INFO
+[1.417s] writing dependency_links to ../../build/puzzlebot_gazebo/puzzlebot_gazebo.egg-info/dependency_links.txt
+[1.418s] writing entry points to ../../build/puzzlebot_gazebo/puzzlebot_gazebo.egg-info/entry_points.txt
+[1.418s] writing requirements to ../../build/puzzlebot_gazebo/puzzlebot_gazebo.egg-info/requires.txt
+[1.418s] writing top-level names to ../../build/puzzlebot_gazebo/puzzlebot_gazebo.egg-info/top_level.txt
+[1.421s] reading manifest file '../../build/puzzlebot_gazebo/puzzlebot_gazebo.egg-info/SOURCES.txt'
+[1.422s] adding license file 'LICENSE'
+[1.425s] writing manifest file '../../build/puzzlebot_gazebo/puzzlebot_gazebo.egg-info/SOURCES.txt'
+[1.425s] running build
+[1.425s] running build_py
+[1.425s] running install
+[1.426s] running install_lib
+[1.427s] running install_data
+[1.435s] running install_egg_info
+[1.436s] removing '/home/ricard/ros2_ws_puzzlebot/install/puzzlebot_gazebo/lib/python3.10/site-packages/puzzlebot_gazebo-0.0.0-py3.10.egg-info' (and everything under it)
+[1.437s] Copying ../../build/puzzlebot_gazebo/puzzlebot_gazebo.egg-info to /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_gazebo/lib/python3.10/site-packages/puzzlebot_gazebo-0.0.0-py3.10.egg-info
+[1.438s] running install_scripts
+[1.458s] Installing puzzlebot_gazebo script to /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_gazebo/lib/puzzlebot_gazebo
+[1.458s] writing list of installed files to '/home/ricard/ros2_ws_puzzlebot/build/puzzlebot_gazebo/install.log'
+[1.482s] Invoked command in '/home/ricard/ros2_ws_puzzlebot/src/puzzlebot_gazebo' returned '0': PYTHONPATH=/home/ricard/ros2_ws_puzzlebot/build/puzzlebot_gazebo/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ricard/ros2_ws_puzzlebot/install/puzzlebot_gazebo/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/puzzlebot_gazebo build --build-base /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_gazebo/build install --record /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_gazebo/install.log --single-version-externally-managed install_data

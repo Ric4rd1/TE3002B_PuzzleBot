@@ -1,0 +1,43 @@
+[1.620s] Invoking command in '/home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description': PYTHONPATH=/home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/build --no-deps symlink_data --force
+[1.989s] running develop
+[2.220s] running egg_info
+[2.221s] writing puzzlebot_description.egg-info/PKG-INFO
+[2.221s] writing dependency_links to puzzlebot_description.egg-info/dependency_links.txt
+[2.221s] writing entry points to puzzlebot_description.egg-info/entry_points.txt
+[2.222s] writing requirements to puzzlebot_description.egg-info/requires.txt
+[2.222s] writing top-level names to puzzlebot_description.egg-info/top_level.txt
+[2.225s] reading manifest file 'puzzlebot_description.egg-info/SOURCES.txt'
+[2.227s] writing manifest file 'puzzlebot_description.egg-info/SOURCES.txt'
+[2.229s] running build_ext
+[2.229s] Creating /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/python3.10/site-packages/puzzlebot-description.egg-link (link to .)
+[2.231s] Installing joint_state_publisher script to /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/puzzlebot_description
+[2.231s] 
+[2.231s] Installed /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description
+[2.231s] running symlink_data
+[2.231s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/resource/puzzlebot_description -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/ament_index/resource_index/packages
+[2.232s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/package.xml -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description
+[2.232s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/launch/robot_state_publisher_launch.py -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/launch
+[2.232s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/rviz/puzzlebot_desc.rviz -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/rviz
+[2.233s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_misc/macros.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_misc
+[2.233s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_misc/materials.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_misc
+[2.233s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_mechanical/puzzlebot_jetson_base.urdf.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_mechanical
+[2.233s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_mechanical/puzzlebot_jetson_lidar_base.urdf.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_mechanical
+[2.234s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_mechanical/puzzlebot_hacker_base.urdf.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_mechanical
+[2.234s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_sensors/laser_camera_bracket.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_sensors
+[2.234s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_sensors/lidar.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_sensors
+[2.235s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_control/gazebo_control.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_control
+[2.235s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_robots/puzzlebot_jetson_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots
+[2.235s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_robots/puzzlebot_hacker_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots
+[2.235s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_robots/puzzlebot_jetson_lidar_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots
+[2.236s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_robots/hacker_ed/parameters_hacker_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots/hacker_ed
+[2.236s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_robots/jetson_lidar_ed/parameters_jetson_lidar_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots/jetson_lidar_ed
+[2.236s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/urdf/mcr2_robots/jetson_ed/parameters_jetson_ed.xacro -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/urdf/mcr2_robots/jetson_ed
+[2.236s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/wheels/Puzzlebot_Wheel.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/wheels
+[2.237s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/wheels/Puzzlebot_Caster_Wheel.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/wheels
+[2.237s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/misc/NVIDIA_Jetson.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/misc
+[2.237s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/misc/DC_Motor.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/misc
+[2.238s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/bases/Puzzlebot_Jetson_Lidar_Edition_Base.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/bases
+[2.238s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/bases/Puzzlebot_Hacker_Editon_Base.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/bases
+[2.239s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/sensors/Laser_Camera_Bracket.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/sensors
+[2.239s] symbolically linking /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/meshes/sensors/RPLidar.stl -> /home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/share/puzzlebot_description/meshes/sensors
+[2.305s] Invoked command in '/home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description' returned '0': PYTHONPATH=/home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ricard/ros2_ws_puzzlebot/install/puzzlebot_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/build --no-deps symlink_data --force
