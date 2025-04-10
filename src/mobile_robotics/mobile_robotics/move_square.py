@@ -26,10 +26,12 @@ class MoveForwardClass(Node):
         self.length = 2 # square length (m)
         self.vel_linear = 0.2 # (m/s)
         self.vel_angular = -0.8 # (rad/s)
+        self.calibration_factor_l = 0.95 # Calibration factor for the robot
 
         # Calculate times for turning and moving forward
         self.t_angular = abs((90*pi/180) / self.vel_angular) - 0.15
-        self.t_linear = self.length / self.vel_linear
+
+        self.t_linear = abs(self.length / self.vel_linear) * self.calibration_factor_l
         
         self.counter = 0 
 

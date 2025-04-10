@@ -47,7 +47,8 @@ class ControllerPoints(Node):
 
         self.vel_linear = 0.2 # (m/s)
         self.vel_angular = 0.5 # (rad/s)
-        self.calibration_factor = 0.93 # Calibration factor for the robot
+        self.calibration_factor_a = 0.91 # Calibration factor for the robot
+        self.calibration_factor_l = 0.95 # Calibration factor for the robot
 
 
         # Message
@@ -70,8 +71,8 @@ class ControllerPoints(Node):
         self.curr_point_y = msg.position.y
         self.curr_angle = target_angle
         # Calculate the time to turn and move forward
-        self.t_angular = abs(self.angular_distance / self.vel_angular) #* self.calibration_factor
-        self.t_linear = self.linear_distance / self.vel_linear
+        self.t_angular = abs(self.angular_distance / self.vel_angular) * self.calibration_factor_a
+        self.t_linear = abs(self.linear_distance / self.vel_linear) * self.calibration_factor_l
 
         self.get_logger().info(f"Received point: ({msg.position.x}, {msg.position.y})")
         self.start_time = self.get_clock().now() #Update the time when the robot started moving
