@@ -1,1 +1,0 @@
-/home/ricard/ros2_ws_puzzlebot/src/puzzlebot_gazebo/setup.py

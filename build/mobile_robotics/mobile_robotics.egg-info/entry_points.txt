@@ -1,8 +1,0 @@
-[console_scripts]
-move_agle_given = mobile_robotics.move_angle_given:main
-move_forward = mobile_robotics.move_forward:main
-move_forward_distance = mobile_robotics.move_forward_distance:main
-move_square = mobile_robotics.move_square:main
-pub_sub_with_classes = mobile_robotics.pub_sub_with_classes:main
-test_node = mobile_robotics.test_node:main
-

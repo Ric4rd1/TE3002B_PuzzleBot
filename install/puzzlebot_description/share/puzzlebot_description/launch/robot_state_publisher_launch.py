@@ -1,1 +1,0 @@
-/home/ricard/ros2_ws_puzzlebot/build/puzzlebot_description/launch/robot_state_publisher_launch.py

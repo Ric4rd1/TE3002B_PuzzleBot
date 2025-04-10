@@ -1,5 +1,0 @@
-  File "/home/ricard/ros2_ws_puzzlebot/install/mobile_robotics/lib/python3.10/site-packages/mobile_robotics/move_square.py", line 72
-    self.state = "move_forward" if self.counter < 4 else self.state = "stop"
-    ^^^^^^^^^^
-SyntaxError: cannot assign to attribute here. Maybe you meant '==' instead of '='?
-

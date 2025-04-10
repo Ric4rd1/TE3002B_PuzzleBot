@@ -1,9 +1,0 @@
-source;share/mobile_robotics/hook/pythonpath.ps1
-source;share/mobile_robotics/hook/pythonpath.dsv
-source;share/mobile_robotics/hook/pythonpath.sh
-source;share/mobile_robotics/hook/ament_prefix_path.ps1
-source;share/mobile_robotics/hook/ament_prefix_path.dsv
-source;share/mobile_robotics/hook/ament_prefix_path.sh
-source;../../build/mobile_robotics/share/mobile_robotics/hook/pythonpath_develop.ps1
-source;../../build/mobile_robotics/share/mobile_robotics/hook/pythonpath_develop.dsv
-source;../../build/mobile_robotics/share/mobile_robotics/hook/pythonpath_develop.sh
