@@ -1,12 +1,6 @@
 # TE3002B_PuzzleBot
 This repository contains the packages and resources for the **MCR2 course** developed by **Manchester Robotics Ltd. (MCR2)**. The course is designed to provide students with an understanding of modern autonomous systems, combining theory and practical challenges.
 
-## Overview
-
-The course is structured into **ten sessions**, each aimed at teaching students various aspects of robotics, ranging from basic navigation techniques to more advanced topics such as image recognition and machine learning implementation. Throughout the course, students will work with the **Puzzlebot** platform, leveraging **ROS2** (Humble) and **Ubuntu 22.04** to implement intelligent algorithms in robotics.
-
-Each session includes hands-on challenges that simulate real-world problems faced during the implementation of advanced algorithms in autonomous robotics.
-
 ## Mini Challenge 1
 
 Mini Challenge 1 consists of two main tasks:
