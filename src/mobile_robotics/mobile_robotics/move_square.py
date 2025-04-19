@@ -1,9 +1,8 @@
-# Move in a square with a certain length given by the topic /distance (open loop)
+# Move in a square of 2m length given by the topic /distance (open loop)
 
 import rclpy 
 from rclpy.node import Node 
 from geometry_msgs.msg import Twist
-from std_msgs.msg import Float32
 from numpy import pi as pi
  
 
@@ -16,29 +15,28 @@ class MoveForwardClass(Node):
 
         # Init ROS subscriber and publisher 
         self.cmd_vel_pub = self.create_publisher(Twist, "cmd_vel", 10) 
-        self.distance_sub = self.create_subscription(Float32, "square_length", self.distance_callback, 10)
 
         # Declare the ROS timer 
         timer_period = 0.05 #Time in seconds to call the timer_callback function 
         self.timer = self.create_timer(timer_period, self.timer_callback) 
         self.get_logger().info("Node initialized!!!") 
 
-        self.state = 'stop'
-        self.recieved_length = False
-        self.length = 0
-        self.t_linear = 0
-        self.vel_linear = 0.2
-        self.vel_angular = -0.8
-        self.t_angular = abs((90*pi/180) / self.vel_angular) - 0.15
-        self.counter = 0
-        self.vel = Twist() 
+        self.state = 'stop' # Initial state
+        self.first_time = True # flag
+        self.length = 2 # square length (m)
+        self.vel_linear = 0.2 # (m/s)
+        self.vel_angular = -0.8 # (rad/s)
+        self.calibration_factor_l = 0.95 # Calibration factor for the robot
 
-    def distance_callback(self, msg):
-        self.distance = msg.data
-        self.t_linear = self.distance / self.vel_linear
-        self.recieved_length = True
-        print("I received this message in the callback: " + str(self.distance)) 
+        # Calculate times for turning and moving forward
+        self.t_angular = abs((90*pi/180) / self.vel_angular) - 0.15
+
+        self.t_linear = abs(self.length / self.vel_linear) * self.calibration_factor_l
         
+        self.counter = 0 
+
+        # Message
+        self.vel = Twist() 
         
 
     def timer_callback(self): 
@@ -48,7 +46,8 @@ class MoveForwardClass(Node):
             self.vel.angular.z = 0.0 # rad/s 
             self.cmd_vel_pub.publish(self.vel) #publish the message 
 
-            if self.recieved_length: 
+            if self.first_time: 
+                self.first_time = False
                 self.state = "move_forward" #Change the state to move forward 
                 self.start_time = self.get_clock().now() #Update the time when the robot started moving 
                 self.get_logger().info("Moving forward")
@@ -63,6 +62,7 @@ class MoveForwardClass(Node):
             if self.get_clock().now().nanoseconds - self.start_time.nanoseconds >= self.t_linear*10**9: 
                 self.state = "turn" #Change the state to stop 
                 self.start_time = self.get_clock().now()
+                self.get_logger().info("Turning")
 
         elif self.state == "turn":
             self.vel.linear.x = 0.0
@@ -74,23 +74,25 @@ class MoveForwardClass(Node):
 
                 if self.counter < 4:
                     self.state = "move_forward"
+                    self.get_logger().info("Moving forward")
                 else:
                     self.state = "stop"
                     self.get_logger().info("Stopping")
-                    self.recieved_length = False
-                    self.distance = 0
                 
                 self.start_time = self.get_clock().now() #Update the time when the robot started moving 
 
                 
-
-
 def main(args=None): 
     rclpy.init(args=args) 
-    m_p=MoveForwardClass() 
-    rclpy.spin(m_p) 
-    m_p.destroy_node()
-    rclpy.shutdown() 
+    move_square = MoveForwardClass() 
+    try:
+        rclpy.spin(move_square)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        move_square.destroy_node()
+        rclpy.try_shutdown()
+
 
 if __name__ == '__main__': 
     main() 
