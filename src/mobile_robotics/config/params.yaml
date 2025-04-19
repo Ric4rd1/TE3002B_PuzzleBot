@@ -1,6 +1,6 @@
 path_generator:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False
     point_1: [0.5, 0.5]
     point_2: [0.0, 0.5]
     point_3: [0.5, 0.0]
