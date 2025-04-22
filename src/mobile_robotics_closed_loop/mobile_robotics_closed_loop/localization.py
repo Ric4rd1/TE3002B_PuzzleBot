@@ -23,7 +23,10 @@ class Localization(Node):
 
         # Constants
         self.radius = 0.0505 #radius of the wheel [m]
+        #self.l = 0.172 # Distance between wheels [m]
         self.l = 0.172/2.0 # Distance between wheels [m]
+        self.ang_correction = 1.09
+        self.lin_correction = 1.09
 
         # Variables
         self.linear_vel = 0.0
@@ -77,8 +80,10 @@ class Localization(Node):
 
         if dt > self.sample_time:
             # Calculate linear and angular vel
+            #self.linear_vel = ((self.encR_vel.data + self.encL_vel.data)/2.0)
             self.linear_vel = self.radius*((self.encR_vel.data + self.encL_vel.data)/2.0)
             self.angular_vel = self.radius*((self.encR_vel.data - self.encL_vel.data)/self.l)
+            #self.angular_vel = ((self.encR_vel.data - self.encL_vel.data)/self.l)
 
             # Calculate velcocity components
             self.xp = self.linear_vel*np.cos(self.yaw)
@@ -86,10 +91,10 @@ class Localization(Node):
             self.yawp = self.angular_vel
 
             # Estimate position with euler 
-            self.x = self.x + self.xp * dt
-            self.y = self.y + self.yp * dt
-            self.yaw = self.yaw + self.yawp * dt
-            #self.yaw = (self.yaw + np.pi) % (2 * np.pi) - np.pi # Normalize to [-pi,pi]
+            self.x = self.x + self.xp * dt * self.lin_correction
+            self.y = self.y + self.yp * dt * self.lin_correction
+            self.yaw = self.yaw + self.yawp * dt * self.ang_correction
+            self.yaw = (self.yaw + np.pi) % (2 * np.pi) - np.pi # Normalize to [-pi,pi]
 
             self.last_time = current_time
 
@@ -98,6 +103,9 @@ class Localization(Node):
             self.pose2D.y = round(self.y, 4)
             self.pose2D.theta = round(self.yaw, 4)
             self.pose2D_pub.publish(self.pose2D)
+
+            self.get_logger().info(f"DT: {dt:.4f}, LinVel: {self.linear_vel:.4f}, AngVel: {self.angular_vel:.4f}")
+            self.get_logger().info(f"Yaw: {self.yaw:.4f}, X: {self.x:.4f}, Y: {self.y:.4f}")
 
 
 def main(args=None):
