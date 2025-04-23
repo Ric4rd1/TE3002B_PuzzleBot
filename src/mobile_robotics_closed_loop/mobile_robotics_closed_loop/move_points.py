@@ -171,11 +171,20 @@ class MovePoints(Node):
                 return
             elif self.recieved_point: # Check if the point has been received
                 self.recieved_point = False
-                self.state = "move" #Change the state to move forward 
+                self.state = "turn" #Change the state to move forward 
                 # Log current position
                 self.get_logger().info(f'Current position: {self.x}x, {self.y}y, {self.yaw}rad\n')
                 self.get_logger().info("Moving to point")
                 return
+            
+        elif self.state == "turn":
+            self.control_angular()
+
+            if abs(self.yaw_err) < 0.1:
+                self.state = "move"
+                self.get_logger().info("Turning complete")
+                self.get_logger().info(f'Current position: {self.x}x, {self.y}y, {self.yaw}rad\n')
+                self.stabilize_position() # Call the stabilize position function
 
 
         elif self.state == "move": 
@@ -198,7 +207,7 @@ class MovePoints(Node):
                 self.get_logger().info("Confirmation message sent")
             
             if self.recieved_point: # Check if the point has been received
-                self.state = "move" # Change the state to turn
+                self.state = "turn" # Change the state to turn
                 self.recieved_point = False
                 self.get_logger().info("Moving to point")
             
