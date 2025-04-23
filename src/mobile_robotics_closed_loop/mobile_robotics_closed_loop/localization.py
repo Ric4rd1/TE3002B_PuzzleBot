@@ -51,6 +51,8 @@ class Localization(Node):
         self.encR_vel = Float32()
         self.pose2D = Pose2D()
 
+        
+
         self.get_logger().info("Localization node initailized!!!") 
 
 
@@ -104,8 +106,8 @@ class Localization(Node):
             self.pose2D.theta = round(self.yaw, 4)
             self.pose2D_pub.publish(self.pose2D)
 
-            self.get_logger().info(f"DT: {dt:.4f}, LinVel: {self.linear_vel:.4f}, AngVel: {self.angular_vel:.4f}")
-            self.get_logger().info(f"Yaw: {self.yaw:.4f}, X: {self.x:.4f}, Y: {self.y:.4f}")
+            #self.get_logger().info(f"DT: {dt:.4f}, LinVel: {self.linear_vel:.4f}, AngVel: {self.angular_vel:.4f}")
+            #self.get_logger().info(f"Yaw: {self.yaw:.4f}, X: {self.x:.4f}, Y: {self.y:.4f}")
 
 
 def main(args=None):
