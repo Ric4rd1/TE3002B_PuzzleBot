@@ -7,6 +7,7 @@ from std_msgs.msg import String
 class PointGenerator(Node):
     def __init__(self):
         super().__init__('point_generator')
+        # Wait for localization to start
         sleep_duration = rclpy.duration.Duration(seconds=1.0)
         self.get_clock().sleep_for(sleep_duration)
         
@@ -40,6 +41,7 @@ class PointGenerator(Node):
     def confirmation_callback(self, msg):
         if msg.data == 'ok':
             self.get_logger().info('Received confirmation from controller.')
+            # Check if all points have been published
             if self.curr_point_index >= len(self.points):
                 self.get_logger().info('All points have been published.')
                 return

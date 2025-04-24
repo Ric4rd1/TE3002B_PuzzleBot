@@ -6,6 +6,8 @@ from rclpy import qos
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Pose2D
 import numpy as np
+import signal
+import sys
  
 # Move in a square of 2m length (closed loop)
 
@@ -13,8 +15,8 @@ class MoveSquare(Node):
     def __init__(self): 
 
         super().__init__('move_square') #Init the node with the name "move_forward" 
-        # Declare necessary variables 
-        self.start_time = self.get_clock().now() #Indicate the time when the robot starts moving.   
+        # Handle shutdown gracefully 
+        signal.signal(signal.SIGINT, self.shutdown_function) # When Ctrl+C is pressed, call self.shutdown_function 
 
         # Publisher
         self.cmd_vel_pub = self.create_publisher(Twist, "cmd_vel", 10) 
@@ -32,12 +34,11 @@ class MoveSquare(Node):
         self.recieved_initial_pose = False
         self.counter = 0 
         # Constants
-        self.length = 1.2 # square length (m)
+        self.length = 2.0 # square length (m)
         self.vel_linear = 0.2 # (m/s)
         self.vel_angular = 0.6 # (rad/s)
-        self.calibration_factor_l = 0.95 # Calibration factor for the robot
         # Control
-        self.kp_linear = 1.0
+        self.kp_linear = 0.9
         self.kp_angular = 4.0
         self.x_err = 0.0
         self.y_err = 0.0
@@ -59,9 +60,20 @@ class MoveSquare(Node):
 
         self.get_logger().info("Node initialized!!!") 
 
+    def shutdown_function(self, signum, frame): 
+        # Handle shutdown gracefully
+        # This function will be called when Ctrl+C is pressed 
+        # It will stop the robot and shutdown the node 
+        self.get_logger().info("Shutting down. Stopping robot...") 
+        stop_twist = Twist()  # All zeros to stop the robot 
+        self.cmd_vel_pub.publish(stop_twist) # publish it to stop the robot before shutting down 
+        rclpy.shutdown() # Shutdown the node 
+        sys.exit(0) # Exit the program 
+
     def pose2D_callback(self, msg):
         if not self.recieved_initial_pose:
             self.recieved_initial_pose = True
+        # Update current position
         self.x = msg.x
         self.y = msg.y
         self.yaw = msg.theta
@@ -71,6 +83,7 @@ class MoveSquare(Node):
         return np.arctan2(np.sin(angle), np.cos(angle))
     
     def stabilize_position(self):
+        # Stop the robot and wait for 1 second
         sleep_time = 1.0 # seconds
         self.vel.linear.x = 0.0
         self.vel.angular.z = 0.0
@@ -82,6 +95,8 @@ class MoveSquare(Node):
         self.get_logger().info("Stabilization complete")
     
     def control_combined(self):
+        # Control for linear and angular velocity
+        # Calculate the error
         self.x_err = self.x_set - self.x
         self.y_err = self.y_set - self.y
         self.dist_err = np.sqrt(self.x_err**2 + self.y_err**2)
@@ -89,9 +104,11 @@ class MoveSquare(Node):
         # Control
         self.vel.linear.x = self.kp_linear * self.dist_err
         self.vel.angular.z = self.kp_angular * self.yaw_err
-        # Limit the velocity
+        # Limit linear velocity
         if self.vel.linear.x > self.vel_linear:
             self.vel.linear.x = self.vel_linear
+        # Limit angular velocity
+        # Postive and negative limits
         if self.vel.angular.z > 0:
             if self.vel.angular.z > self.vel_angular:
                 self.vel.angular.z = self.vel_angular
@@ -104,6 +121,7 @@ class MoveSquare(Node):
         #self.get_logger().info(f'Control: [{self.vel.linear.x}] linear vel, [{self.vel.angular.z}] angular vel\n')
     
     def control_linear(self):
+        # Control only for linear velocity
         self.x_err = self.x_set - self.x
         self.y_err = self.y_set - self.y
         self.dist_err = np.sqrt(self.x_err**2 + self.y_err**2)
@@ -119,6 +137,7 @@ class MoveSquare(Node):
         #self.get_logger().info(f'Control: [{self.vel.linear.x}] linear vel, [{self.vel.angular.z}] angular vel\n')
 
     def control_angular(self):
+        # Control only for angular velocity
         self.x_err = self.x_set - self.x
         self.y_err = self.y_set - self.y
         self.dist_err = np.sqrt(self.x_err**2 + self.y_err**2)
@@ -140,7 +159,9 @@ class MoveSquare(Node):
         
 
     def timer_callback(self): 
+        # Main loop, state machine
 
+        # Initial state
         if self.state == "stop": 
             self.vel.linear.x = 0.0 # m/s 
             self.vel.angular.z = 0.0 # rad/s 
@@ -160,11 +181,12 @@ class MoveSquare(Node):
                 self.get_logger().info("Moving forward")
                 return 
 
+        # Move forward for the length of the square
         elif self.state == "move_forward": 
             self.control_combined() # Apply control and pubilsh vel
             # Log current position
             #self.get_logger().info(f'Current position: {self.x}x, {self.y}y, {self.yaw}rad\n')
-            if self.dist_err < 0.1: #Check if the robot is close to the setpoint
+            if self.dist_err < 0.05: #Check if the robot is close to the setpoint
                 self.state = "turn" #Change the state to turn
                 
                 # Update setpoint
@@ -176,6 +198,7 @@ class MoveSquare(Node):
                 self.stabilize_position() # Call the stabilize position function
                 self.get_logger().info("Turning")
 
+        # Turn -90 degrees (-1.57 rad)
         elif self.state == "turn":
             self.control_angular() # Apply control and pubilsh vel
             # Log velocity

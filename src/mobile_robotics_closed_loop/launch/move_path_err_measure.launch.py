@@ -24,15 +24,8 @@ def generate_launch_description():
         output='screen', 
         emulate_tty=True, 
         parameters=[config] 
-    ) 
-    point_generator = Node( 
-        package='mobile_robotics_closed_loop', 
-        executable='point_generator', 
-        output='screen', 
-        emulate_tty=True, 
-        parameters=[config] 
-    ) 
+    )  
     
-    ld = LaunchDescription([localization, move_points, point_generator]) 
+    ld = LaunchDescription([localization, move_points]) 
 
     return ld 

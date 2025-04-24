@@ -41,8 +41,6 @@ class Localization(Node):
         self.yawp = 0.0
 
         # Internal state
-        self.first = True
-        self.start_time = 0.0
         self.current_time = 0.0
         self.last_time = 0.0
 
@@ -70,22 +68,13 @@ class Localization(Node):
             self.encR_vel.data = 0.0
 
     def timer_callback(self):
-        if self.first:
-            self.start_time = self.get_clock().now()
-            self.last_time = self.start_time
-            self.current_time = self.start_time
-            self.first = False
-            return
         # Get current time and compute dt
-        current_time = self.get_clock().now()
-        dt = (current_time - self.last_time).nanoseconds * 1e-9 # Convert to seconds
-
+        current_time = self.get_clock().now().nanoseconds
+        dt = (current_time - self.last_time) * 10**-9 # Convert to seconds
         if dt > self.sample_time:
             # Calculate linear and angular vel
-            #self.linear_vel = ((self.encR_vel.data + self.encL_vel.data)/2.0)
             self.linear_vel = self.radius*((self.encR_vel.data + self.encL_vel.data)/2.0)
             self.angular_vel = self.radius*((self.encR_vel.data - self.encL_vel.data)/self.l)
-            #self.angular_vel = ((self.encR_vel.data - self.encL_vel.data)/self.l)
 
             # Calculate velcocity components
             self.xp = self.linear_vel*np.cos(self.yaw)

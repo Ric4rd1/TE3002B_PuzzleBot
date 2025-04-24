@@ -5,12 +5,6 @@ from launch_ros.actions import Node
 
 def generate_launch_description(): 
     # Get the address of the yaml file 
-    '''
-    config = os.path.join(
-        get_package_share_directory('mobile_robotics'),
-        'config',
-        'params.yaml')
-    '''
     
     localization = Node( 
         package='mobile_robotics_closed_loop', 
