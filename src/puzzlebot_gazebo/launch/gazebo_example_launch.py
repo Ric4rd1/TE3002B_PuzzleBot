@@ -26,7 +26,8 @@ from launch.substitutions import EnvironmentVariable, Command
 def generate_launch_description():
 
     # World and robot file names
-    world_file = 'puzzlebot_arena.world'
+    #world_file = 'puzzlebot_arena.world' # Used for minichallenge 1,2
+    world_file = 'color_balls.sdf' # Used for minichallenge 3
     robot = 'puzzlebot_jetson_lidar_ed'
 
     # Robot's initial position
