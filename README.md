@@ -1,5 +1,5 @@
 # TE3002B_PuzzleBot
-![Puzzlebot](images/20250501_152858.png)
+<img src="images/20250501_152858.png" alt="Puzzlebot" width="400"/>
 This repository contains the packages and resources for the **MCR2 course** developed by **Manchester Robotics Ltd. (MCR2)**. The course is designed to provide students with an understanding of modern autonomous systems, combining theory and practical challenges.
 
 ## Mini Challenge 1
