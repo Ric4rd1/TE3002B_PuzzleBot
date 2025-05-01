@@ -1,12 +1,14 @@
-# TE3002B_PuzzleBot
+# TE3002B_PuzzleBot 🤖
 <p align="center">
-  <img src="images/20250501_152858.png" alt="Puzzlebot Front View" width="200"/>
+  <img src="images/20250501_152858.png" alt="Left View" width="200"/>
   &nbsp;&nbsp;&nbsp;
-  <img src="images/20250501_152910.png" alt="Puzzlebot Side View" width="200"/>
+  <img src="images/20250501_152910.png" alt="Front View" width="200"/>
+  &nbsp;&nbsp;&nbsp;
+  <img src="images/20250501_154338.png" alt="Right View" width="200"/>
 </p>
 This repository contains the packages and resources for the **MCR2 course** developed by **Manchester Robotics Ltd. (MCR2)**. The course is designed to provide students with an understanding of modern autonomous systems, combining theory and practical challenges.
 
-## Mini Challenge 1
+## Mini Challenge 1 🎯⚡
 
 Mini Challenge 1 consists of two main tasks:
 
@@ -20,7 +22,7 @@ The code for Mini Challenge 1 is located in the `mobile_robotics` package, and c
 - **Square Path**: `move_square.launch.py`
 - **Custom Path Following**: `path_challenge.launch.py`
 
-## Mini Challenge 2
+## Mini Challenge 2 🎯⚡
 
 Mini Challenge 2 builds upon the tasks from Mini Challenge 1 by incorporating **closed-loop control** using feedback from encoders. This challenge focuses on executing the same square and custom paths, but now using closed-loop velocity control and position estimation. The robot now uses velocity measurements from the **inner control loop** available on the topics `/VelocityEncL` and `/VelocityEncR`.
 
@@ -32,7 +34,7 @@ The implementation for Mini Challenge 2 is located in the `mobile_robotics_close
 - **Closed-Loop Square Path**: `move_square.launch.py`
 - **Closed-Loop Custom Path**: `move_path.launch.py`
 
-## Puzzlebot Hardware
+## Puzzlebot Hardware ⚙️
 
 The Puzzlebot system is powered by the following hardware components:
 
@@ -40,7 +42,7 @@ The Puzzlebot system is powered by the following hardware components:
 - **Hackerboard (ESP32, Motor Driver)**: Used to control the robot's motors and sensors.
 - **2 DC Motoreductors**: [Pololu 4824 DC Motor Driver](https://www.pololu.com/product/4824) to drive the robot's wheels.
 
-## Software
+## Software 🖥️
 
 We are using the following software for the course:
 
