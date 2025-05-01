@@ -15,6 +15,18 @@ The code for Mini Challenge 1 is located in the `mobile_robotics` package, and c
 - **Square Path**: `move_square.launch.py`
 - **Custom Path Following**: `path_challenge.launch.py`
 
+## Mini Challenge 2
+
+Mini Challenge 2 builds upon the tasks from Mini Challenge 1 by incorporating **closed-loop control** using feedback from encoders. This challenge focuses on executing the same square and custom paths, but now using closed-loop velocity control and position estimation. The robot now uses velocity measurements from the **inner control loop** available on the topics `/VelocityEncL` and `/VelocityEncR`.
+
+A **new localization node** is introduced to estimate the robot’s position in real-time based on encoder feedback, significantly improving trajectory accuracy and robustness.
+
+
+
+The implementation for Mini Challenge 2 is located in the `mobile_robotics_closed_loop` package and can be launched using the following files:
+- **Closed-Loop Square Path**: `move_square.launch.py`
+- **Closed-Loop Custom Path**: `move_path.launch.py`
+
 ## Puzzlebot Hardware
 
 The Puzzlebot system is powered by the following hardware components:
