@@ -17,7 +17,7 @@ class MoveTest(Node):
 
         self.turning = True
         self.turn_speed = 0.8 #[rad/s]
-        self.turn_angle = 2.355 # [rad]
+        self.turn_angle = -1.57 # [rad]
         self.turn_correction_positive = self.turn_angle * 0.025 # Compensate for the robot turning too much
         self.turn_correction_negative = abs(self.turn_angle) * 0.029 # Compensate for the robot turning too little
 

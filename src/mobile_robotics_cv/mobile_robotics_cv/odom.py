@@ -40,10 +40,8 @@ class Odometry(Node):
          
         v,w = self.get_robot_velocity(self.wl, self.wr) #get the robot's speed 
         self.update_robot_pose(v, w) # get the pose of the robot returns [xr, yr, theta_r] 
-        #print("xr: " + str(self.x)) 
-        #print("yr: " + str(self.y)) 
-        #print("theta_r: " + str(self.theta)) 
-        self.get_logger().info(f"Pose: x={self.x:.4g}, y={self.y:.4g}, theta={self.theta:.4g}")
+
+        #self.get_logger().info(f"Pose: x={self.x:.4g}, y={self.y:.4g}, theta={self.theta:.4g}")
  
         self.robot_pose.x = self.x 
         self.robot_pose.y = self.y 
