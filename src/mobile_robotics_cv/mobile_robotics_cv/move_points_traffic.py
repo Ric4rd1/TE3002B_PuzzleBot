@@ -13,7 +13,7 @@ import sys
 
 class MovePoints(Node): 
     def __init__(self): 
-        super().__init__('move_points')
+        super().__init__('move_points_traffic')
 
         # Handle shutdown gracefully 
         signal.signal(signal.SIGINT, self.shutdown_function) # When Ctrl+C is pressed, call self.shutdown_function 
@@ -33,6 +33,8 @@ class MovePoints(Node):
         self.pose2D_sub = self.create_subscription(Pose2D, "pose", self.pose2D_callback, qos.qos_profile_sensor_data)
         # Subscriber for receiving point to move to
         self.point_sub = self.create_subscription(Pose2D, "point", self.point_callback, 10)
+        # Subscriber for detecting stop light
+        self.stop_light_sub = self.create_subscription(String, "traffic_light", self.stop_light_callback, 10)
 
         # Timer
         timer_period = 0.05 #Time in seconds to call the timer_callback function 
@@ -40,7 +42,9 @@ class MovePoints(Node):
 
         # Variables
         self.state = 'stop' # Initial state
+        self.prev_state = 'stop' # Previous state
         self.counter = 0 
+        self.traffic_light = 'green' # Initial traffic light state
         self.first_time = True # Flag to check if the first time is called
         self.recieved_initial_pose = False # Flag to check if the initial pose is received
         self.recieved_point = False # Flag to check if the point is received
@@ -70,6 +74,28 @@ class MovePoints(Node):
         self.cmd_vel_pub.publish(stop_twist) # publish it to stop the robot before shutting down 
         rclpy.shutdown() # Shutdown the node 
         sys.exit(0) # Exit the program 
+
+    def stop_light_callback(self, msg):
+        # Update traffic light state
+        if self.traffic_light == msg.data:
+            return
+        self.traffic_light = msg.data
+
+        # Check if the traffic light is red
+        if self.traffic_light == 'red':
+            self.prev_state = self.state if (self.state != 'green_light' and self.state != 'yellow_light')  else self.prev_state # Avoid bugs when it detects several colors
+            self.state = 'red_light'
+            self.get_logger().info(f"Previous state: {self.prev_state}")
+            self.get_logger().info("Red light detected, stopping robot")
+        elif self.traffic_light == 'green' and self.state == 'red_light':
+            self.state = 'green_light'
+            self.get_logger().info(f"Previous state: {self.prev_state}")
+            self.get_logger().info("Green light detected, moving robot")
+        elif self.traffic_light == 'yellow' and self.state != 'red_light':
+            self.prev_state = self.state if (self.state != 'green_light' and self.state != 'red_light') else self.prev_state
+            self.state = 'yellow_light' 
+            self.get_logger().info(f"Previous state: {self.prev_state}")
+            self.get_logger().info("Yellow light detected, slowing down robot")
 
     def pose2D_callback(self, msg):
         if not self.recieved_initial_pose:
@@ -173,8 +199,8 @@ class MovePoints(Node):
                 self.recieved_point = False
                 self.state = "evaluate"
                 return
-        
-        # Evaluate the conditions and decide to turn (just angular) or move (with both angular and linear)     
+
+        # Evaluate the conditions and decide to turn (just angular) or move (with both angular and linear)    
         elif self.state == "evaluate":
             # Check if the angle is too wider than 2.09 rad
             if (self.condition_1(self.x, self.y, self.setpoint[0], self.setpoint[1], angle=1.48) or 
@@ -244,6 +270,21 @@ class MovePoints(Node):
             if self.recieved_point: # Check if the point has been received
                 self.state = "evaluate" # Change the state to turn
                 self.recieved_point = False
+
+        elif self.state == "red_light":
+            # Stop the robot
+            stop=Twist()
+            self.cmd_vel_pub.publish(stop)
+        
+        elif self.state == "yellow_light":
+            # Slow down the robot
+            self.vel_linear = 0.13
+            self.state = self.prev_state # Go back to the state before the yellow light
+
+        elif self.state == "green_light":
+            # Speed up the robot
+            self.vel_linear = self.get_parameter('linear_vel').value 
+            self.state = self.prev_state # Go back to the state before the red light
             
         
                 

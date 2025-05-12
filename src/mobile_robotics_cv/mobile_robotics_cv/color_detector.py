@@ -1,10 +1,3 @@
-""" This program publishes the radius and center of the detected ball   
-    The radius will be zero if there is no detected object  
-    published topics:  
-        /processed_img [Image] 
-    subscribed topics: 
-        /camera    [Image]  
-"""  
 import rclpy 
 from rclpy.node import Node 
 import cv2 
@@ -12,6 +5,7 @@ import numpy as np
 from cv_bridge import CvBridge 
 from sensor_msgs.msg import Image 
 from rcl_interfaces.msg import SetParametersResult
+from rclpy.qos import qos_profile_sensor_data
   
 class CVExample(Node): 
     def __init__(self): 
@@ -21,7 +15,7 @@ class CVExample(Node):
 
         self.sub = self.create_subscription(Image, 'video_source/raw', self.camera_callback, 10) 
         #self.sub = self.create_subscription(Image, 'camera', self.camera_callback, 10) 
-        self.pub = self.create_publisher(Image, 'processed_img', 10) 
+        self.pub = self.create_publisher(Image, 'processed_img', qos_profile=qos_profile_sensor_data) 
 
         # Parameters for the color detection, HSV color space
         self.declare_parameter('h_min', 40)
@@ -44,7 +38,7 @@ class CVExample(Node):
         self.add_on_set_parameters_callback(self.parameter_callback)
          
         self.image_received_flag = False #This flag is to ensure we received at least one image  
-        dt = 0.5 
+        dt = 0.05 # 20Hz
         self.timer = self.create_timer(dt, self.timer_callback) 
         self.get_logger().info('ros_color_tracker Node started') 
 
