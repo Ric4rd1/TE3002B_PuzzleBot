@@ -1,0 +1,49 @@
+stopLight_detector:
+  ros__parameters:
+    # HSV values [h_min, s_min, v_min, h_max, s_max, v_max]
+    # Using fruits
+    #Red_HSV: [160,92,39,179,239,255]
+    #Green_HSV: [21,100,23,68,252,126]
+    #Yellow_HSV: [10,89,83,39,255,255]
+    # Using phone image
+    Red_HSV: [0,113,198,19,255,255]
+    Green_HSV: [52,152,85,77,255,224]
+    Yellow_HSV: [22,200,137,49,255,241]
+
+point_generator:
+  ros__parameters:
+    use_sim_time: False
+    #point_1: [1.0, 0.5]
+    #point_2: [1.5, 1.5]
+    #point_3: [1.0, 2.0]
+    #point_4: [2.0, 1.0]
+
+    #point_1: [1.0, 0.0]
+    #point_2: [1.0, 1.0]
+    #point_3: [2.0, 2.0]
+    #point_4: [0.0, 2.0]
+
+    #point_1: [1.0, 1.0]
+    #point_2: [2.0, 1.0]
+    #point_3: [1.0, 0.0]
+    #point_4: [0.0, 2.0]
+
+    #point_1: [1.0, 2.0]
+    #point_2: [2.0, 1.0]
+    #point_3: [0.0, 1.0]
+    #point_4: [0.0, 0.0]
+
+    point_1: [1.0, 0.0]
+    point_2: [2.0, 2.0]
+    point_3: [1.0, 2.0]
+    point_4: [0.0, 0.0]
+
+move_points_traffic:
+  ros__parameters:
+    use_sim_time: False
+    linear_vel: 0.2
+    angular_vel: 0.8
+
+odom:
+  ros__parameters:
+    use_sim_time: False
