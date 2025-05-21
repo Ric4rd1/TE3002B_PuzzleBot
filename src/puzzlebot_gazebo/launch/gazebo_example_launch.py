@@ -26,12 +26,12 @@ from launch.substitutions import EnvironmentVariable, Command
 def generate_launch_description():
 
     # World and robot file names
-    world_file = 'puzzlebot_arena.world'
+    world_file = 'line_track.world'
     robot = 'puzzlebot_jetson_lidar_ed'
 
     # Robot's initial position
     pos_x = '0.0'   # X coordinate
-    pos_y = '0.0'   # Y coordinate
+    pos_y = '-1.86'   # Y coordinate
     pos_th = '0.0'   # th angle
 
     # Simulation time and pause settings

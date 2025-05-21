@@ -1,0 +1,28 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/hectorg/ros2_ws/install/square_path_controller/lib/python3.10/site-packages",
+        "/home/hectorg/ros2_ws/install/signal_processing/lib/python3.10/site-packages",
+        "/home/hectorg/ros2_ws/install/puzzlebot_square_path/lib/python3.10/site-packages",
+        "/home/hectorg/ros2_ws/install/puzzlebot_gazebo/lib/python3.10/site-packages",
+        "/home/hectorg/ros2_ws/install/puzzlebot_description/lib/python3.10/site-packages",
+        "/home/hectorg/ros2_ws/install/mobile_robotics_cv/lib/python3.10/site-packages",
+        "/home/hectorg/ros2_ws/install/mobile_robotics/lib/python3.10/site-packages",
+        "/home/hectorg/ros2_ws/install/custom_interfaces/local/lib/python3.10/dist-packages",
+        "/home/hectorg/uros_ws/install/micro_ros_msgs/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/hectorg/ros2_ws/install/square_path_controller/lib/python3.10/site-packages",
+        "/home/hectorg/ros2_ws/install/signal_processing/lib/python3.10/site-packages",
+        "/home/hectorg/ros2_ws/install/puzzlebot_square_path/lib/python3.10/site-packages",
+        "/home/hectorg/ros2_ws/install/puzzlebot_gazebo/lib/python3.10/site-packages",
+        "/home/hectorg/ros2_ws/install/puzzlebot_description/lib/python3.10/site-packages",
+        "/home/hectorg/ros2_ws/install/mobile_robotics_cv/lib/python3.10/site-packages",
+        "/home/hectorg/ros2_ws/install/mobile_robotics/lib/python3.10/site-packages",
+        "/home/hectorg/ros2_ws/install/custom_interfaces/local/lib/python3.10/dist-packages",
+        "/home/hectorg/uros_ws/install/micro_ros_msgs/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}
