@@ -1,0 +1,22 @@
+move_line_traffic:
+  ros__parameters:
+    use_sim_time: True
+    simulated_camera: True
+    linear_speed: 0.4
+    angular_speed: 0.8
+
+stopLight_detector:
+  ros__parameters:
+    use_sim_time: True
+    simulated_camera: True
+    # HSV values [h_min, s_min, v_min, h_max, s_max, v_max]
+    # Using Simulator
+    Red_HSV: [0, 133, 105, 20, 255, 255]
+    Green_HSV: [35, 133, 105, 80, 255, 255]
+    Yellow_HSV: [22, 133, 105, 52, 255, 255]
+    # Using phone image
+    #Red_HSV: [0,113,198,19,255,255]
+    #Green_HSV: [52,152,85,77,255,224]
+    #Yellow_HSV: [22,200,137,49,255,241]
+
+

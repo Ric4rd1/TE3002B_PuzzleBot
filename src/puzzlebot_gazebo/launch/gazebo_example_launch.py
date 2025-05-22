@@ -27,12 +27,13 @@ def generate_launch_description():
 
     # World and robot file names
     #world_file = 'puzzlebot_arena.world' # Used for minichallenge 1,2
-    world_file = 'color_balls.sdf' # Used for minichallenge 3
+    #world_file = 'color_balls.sdf' # Used for minichallenge 3
+    world_file = 'line_track.world' # Used for minichallenge 4
     robot = 'puzzlebot_jetson_lidar_ed'
 
     # Robot's initial position
     pos_x = '0.0'   # X coordinate
-    pos_y = '0.0'   # Y coordinate
+    pos_y = '-1.86'   # Y coordinate
     pos_th = '0.0'   # th angle
 
     # Simulation time and pause settings
