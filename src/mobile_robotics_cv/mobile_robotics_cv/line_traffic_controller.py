@@ -14,126 +14,108 @@ from std_msgs.msg import Float32, String
 
 
 class LineTrafficController(Node):
-    """
-    ROS2 node for line traffic control.
-    Combines PID control on line_error with
-    traffic light state from sphere_color.
-    """
-
     def __init__(self):
-        """
-        Initialize controller: declare parameters,
-        set up subscriptions, publishers, and timer.
-        """
         super().__init__('line_traffic_controller')
 
-        # Declare ROS parameters for speeds and PID gains
-        self.declare_parameter('base_speed', 0.13)      # m/s on green
-        self.declare_parameter('slow_speed', 0.07)      # m/s on yellow
-        self.declare_parameter('k_p', 0.001)            # proportional gain
-        self.declare_parameter('k_i', 0.00001)         # integral gain
-        self.declare_parameter('k_d', 0.00005)         # derivative gain
-        self.declare_parameter('max_angular', 0.5)     # rad/s limit
-        self.declare_parameter('filter_alpha', 0.7)     # low-pass filter alpha
+        # Parámetros de velocidad y control
+        self.declare_parameter('base_speed', 0.13)     # velocidad en línea recta (m/s)
+        self.declare_parameter('slow_speed', 0.07)     # velocidad en amarillo (m/s)
+        self.declare_parameter('k_p', 0.001)           # ganancia proporcional
+        self.declare_parameter('k_i', 0.00001)         # ganancia integral (muy pequeña)
+        self.declare_parameter('k_d', 0.00005)         # ganancia derivativa (pequeña)
+        self.declare_parameter('max_angular', 0.5)     # límite de giro (rad/s)
+        self.declare_parameter('filter_alpha', 0.7)    # coeficiente LPF para derivada
 
-        # Publisher for velocity commands
+        # Publicador de cmd_vel
         self.cmd_vel_pub = self.create_publisher(Twist, 'cmd_vel', 10)
 
-        # Subscribe to line_error (Float32) and sphere_color (String)
+        # Suscripciones
         self.create_subscription(Float32, 'line_error', self._on_line_error, 10)
+        self.create_subscription(String, Float32, self._on_line_error, 10)
         self.create_subscription(String, 'sphere_color', self._on_sphere_color, 10)
 
-        # Load parameter values
+        # Carga de parámetros
         params = self.get_parameters([
             'base_speed', 'slow_speed',
             'k_p', 'k_i', 'k_d',
             'max_angular', 'filter_alpha'
         ])
-        (
-            self.base_speed,
-            self.slow_speed,
-            self.k_p,
-            self.k_i,
-            self.k_d,
-            self.max_angular,
-            self.alpha
-        ) = [p.value for p in params]
+        self.base_speed = params[0].value
+        self.slow_speed = params[1].value
+        self.k_p = params[2].value
+        self.k_i = params[3].value
+        self.k_d = params[4].value
+        self.max_angular = params[5].value
+        self.alpha = params[6].value
 
-        # Internal PID state
+        # Estados internos
         self.line_error = 0.0
         self.prev_error = 0.0
         self.error_integral = 0.0
         self.filtered_derivative = 0.0
-
-        # Traffic light state: 'green', 'yellow', or 'red'
         self.traffic_state = 'green'
-
-        # Time tracking for derivative/integral
         self.prev_time = self.get_clock().now()
 
-        # Timer at 20 Hz
+        # Temporizador a 20 Hz
         self.create_timer(0.05, self._on_timer)
 
         self.get_logger().info('LineTrafficController listo 🚀')
 
-    def _on_line_error(self, msg: Float32):  # noqa: D102
-        # Update the current line error
+    def _on_line_error(self, msg: Float32):
+        """Actualiza el error de línea."""
         self.line_error = msg.data
 
-    def _on_sphere_color(self, msg: String):  # noqa: D102
-        # Update traffic state based on detected color
-        color = msg.data.lower()
-        if color in ('red', 'yellow', 'green'):
-            self.traffic_state = color
-            self.get_logger().info(f'{color.capitalize()} detected')
+    def _on_sphere_color(self, msg: String):
+        """Gestiona el semáforo según color de esfera."""
+        c = msg.data.lower()
+        if c in ('red', 'yellow', 'green'):
+            self.traffic_state = c
+            self.get_logger().info(f'{c.capitalize()} detected')
 
-    def _on_timer(self):  # noqa: D102
-        """
-        Timer callback: compute PID, apply traffic rules,
-        and publish cmd_vel Twist message.
-        """
+    def _on_timer(self):
+        """Publica cmd_vel combinando PID y estado de semáforo."""
         now = self.get_clock().now()
-        # Compute delta time in seconds, fallback to timer period
         dt = (now - self.prev_time).nanoseconds * 1e-9 or 0.05
 
-        # Raw derivative of error
-        raw_derivative = (self.line_error - self.prev_error) / dt
+        # Derivada cruda
+        raw_der = (self.line_error - self.prev_error) / dt
 
-        # Low-pass filter on derivative
+        # Filtro pasa-bajos para derivada
         self.filtered_derivative = (
             self.alpha * self.filtered_derivative +
-            (1 - self.alpha) * raw_derivative
+            (1 - self.alpha) * raw_der
         )
 
-        # Integral with anti-windup clamped to [-100, 100]
+        # Integral con anti-windup
         self.error_integral += self.line_error * dt
         self.error_integral = max(min(self.error_integral, 100.0), -100.0)
 
         cmd = Twist()
 
         if self.traffic_state == 'red':
-            # Stop on red
+            # Frenar completamente
             cmd.linear.x = 0.0
             cmd.angular.z = 0.0
         else:
-            # PID control: omega = -(k_p*e + k_i*I + k_d*D)
+            # Control PID: ω = -(k_p·e + k_i·∫e dt + k_d·d e/dt)
             omega = -(
                 self.k_p * self.line_error +
                 self.k_i * self.error_integral +
                 self.k_d * self.filtered_derivative
             )
-            # Clamp angular speed
+
+            # Saturación de velocidad angular
             omega = max(min(omega, self.max_angular), -self.max_angular)
 
-            # Choose base linear speed
-            base_speed = self.slow_speed if self.traffic_state == 'yellow' else self.base_speed
+            # Selección de velocidad lineal base
+            base = self.slow_speed if self.traffic_state == 'yellow' else self.base_speed
 
-            # Reduce linear speed based on turn intensity
-            lin_speed = base_speed - abs(omega)
-            cmd.linear.x = lin_speed if lin_speed >= 0.05 else 0.05
+            # Reducir velocidad lineal en giros y mantener mínimo
+            lin = base - abs(omega)
+            cmd.linear.x = lin if lin >= 0.05 else 0.05
             cmd.angular.z = omega
 
-        # Debug logging at DEBUG level
+        # Log para depuración (nivel DEBUG)
         self.get_logger().debug(
             f'e={self.line_error:.3f}  '
             f'i={self.error_integral:.3f}  '
@@ -142,16 +124,13 @@ class LineTrafficController(Node):
             f'ang={cmd.angular.z:.3f}'
         )
 
-        # Publish command and update state
+        # Publicar y actualizar estados
         self.cmd_vel_pub.publish(cmd)
         self.prev_error = self.line_error
         self.prev_time = now
 
 
 def main(args=None):
-    """
-    Main entry: initialize ROS2 and spin node.
-    """
     rclpy.init(args=args)
     node = LineTrafficController()
     try:
@@ -163,6 +142,5 @@ def main(args=None):
         rclpy.shutdown()
 
 
-if __name__ == '__main__':  
+if __name__ == '__main__':
     main()
-
