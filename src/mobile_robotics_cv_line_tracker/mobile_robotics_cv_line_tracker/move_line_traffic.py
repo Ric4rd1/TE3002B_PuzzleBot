@@ -9,6 +9,7 @@ from std_msgs.msg import String, Float32
 from rclpy import qos
 import signal
 import sys
+import time
 
 class MoveLine(Node):
     
@@ -49,6 +50,7 @@ class MoveLine(Node):
         #self.kp = 0.05
         #self.ki = 0.000
         #self.kd = 0.01
+        # ------- Turning parameters -------
         self.kp = 1.0
         self.ki = 0.00
         self.kd = 0.001
@@ -59,8 +61,20 @@ class MoveLine(Node):
         self.K3 = self.kd/self.dt; 
         self.alpha = 0.8  # smoothing factor (0 < alpha < 1), lower = smoother
         self.filtered_error = 0.0
-
         self.prev_error = 0
+        # ------- Straight parameters -------
+        self.kp_straight = 0.9  # Proportional gain for straight control
+        self.ki_straight = 0.0  # Integral gain for straight control
+        self.kd_straight = 0.001  # Derivative gain for straight control
+        self.error_straight = [0.0, 0.0, 0.0]  # e[0] actual error, e[1] last error, e[2] error before last
+        self.u_straight = [0.0 , 0.0] # u[0] actual output, u[1] last output
+        self.K1_straight = self.kp_straight + self.dt*self.ki_straight + self.kd_straight/self.dt
+        self.K2_straight = -self.kp_straight - 2.0*self.kd_straight/self.dt
+        self.K3_straight = self.kd_straight/self.dt
+        self.alpha_straight = 0.8  # smoothing factor for straight control
+        self.filtered_error_straight = 0.0
+        self.prev_error_straight = 0
+        
 
         self.original_img_width = 160
         self.original_img_height = 120
@@ -115,36 +129,36 @@ class MoveLine(Node):
 
         return self.linear_speed, self.u[0]  # Return linear speed and angular speed
 
-
-    '''
-    def control(self, center_x):
+    def control_straight(self, center_x):
         # Get the center of the image
         height, width = self.cv_img.shape[:2]
         center_img = width // 2
 
-        # Calculate the error
-        error = center_img - center_x
+        # Raw error calculation
+        raw_error = center_img - center_x
+        max_expected_error = 80.0
+        raw_error = np.clip(raw_error, -max_expected_error, max_expected_error)
+        raw_error /= max_expected_error  # Now in [-1, 1]
 
-        # Proportional control
-        #k_p = 0.013
-        k_p = 0.013
-        k_d = 0.0
-        linear_speed = self.linear_speed
-        angular_speed = k_p * error + k_d * (error - self.prev_error) / self.dt
+        # Apply low-pass filter to the error
+        self.filtered_error_straight = self.alpha_straight * raw_error + (1 - self.alpha_straight) * self.filtered_error_straight
+        self.error_straight[0] = self.filtered_error_straight
 
+        # discrete-time PID difference equation
+        self.u_straight[0] = self.K1_straight * self.error_straight[0] + self.K2_straight * self.error_straight[1] + self.K3_straight * self.error_straight[2] + self.u_straight[1]
         # Limit the angular speed
         max_angular_speed = self.angular_speed
-        min_angular_speed = 0.2
-        if abs(angular_speed) > max_angular_speed:
-            angular_speed = max_angular_speed * np.sign(angular_speed)
-        elif abs(angular_speed) < min_angular_speed:
-            angular_speed = min_angular_speed * np.sign(angular_speed)
+        min_angular_speed = 0.0
+        if abs(self.u_straight[0]) > max_angular_speed:
+            self.u_straight[0] = max_angular_speed * np.sign(self.u_straight[0])
+        elif abs(self.u_straight[0]) < min_angular_speed:
+            self.u_straight[0] = min_angular_speed * np.sign(self.u_straight[0])
+        # Shift values
+        self.error_straight[2] = self.error_straight[1]
+        self.error_straight[1] = self.error_straight[0]
+        self.u_straight[1] = self.u_straight[0]
 
-        # Update previous error
-        self.prev_error = error
-
-        return linear_speed, angular_speed
-    ''' 
+        return 0.19, self.u_straight[0]  # Return linear speed and angular speed
 
     def stop_light_callback(self, msg):
         # Update traffic light state
@@ -190,6 +204,7 @@ class MoveLine(Node):
             self.cmd_vel.linear.x = 0.0 # m/s 
             self.cmd_vel.angular.z = 0.0 # rad/s 
             self.pub.publish(self.cmd_vel) #publish the message 
+            time.sleep(1)
 
             if self.image_received_flag:
                 self.state = 'green_light' # Change state to green light
@@ -197,10 +212,14 @@ class MoveLine(Node):
         elif self.state == 'green_light':
             if self.image_received_flag:
                 # Process the image and get the line position
-                proccessed_img, center = self.process_image(self.cv_img) # Returns the processed image and the coordinaate of the center of the line
+                proccessed_img, center, direction = self.process_image(self.cv_img) # Returns the processed image and the coordinaate of the center of the line
                 
                 # Calculate the control command
-                linear, angular = self.control(center[0])
+                if direction == "Left" or direction == "Right":
+                    linear, angular = self.control(center[0])
+                elif direction == "Straight":
+                    linear, angular = self.control_straight(center[0])
+                #linear, angular = self.control(center[0]) # Use the x coordinate of the center of the line
 
                 self.cmd_vel.linear.x = linear
                 self.cmd_vel.angular.z = angular
@@ -216,12 +235,12 @@ class MoveLine(Node):
         elif self.state == 'yellow_light':
             if self.image_received_flag:
                 # Process the image and get the line position
-                proccessed_img, center = self.process_image(self.cv_img) # Returns the processed image and the coordinaate of the center of the line
+                proccessed_img, center, direction = self.process_image(self.cv_img) # Returns the processed image and the coordinaate of the center of the line
                 
                 # Calculate the control command
                 linear, angular = self.control(center[0])
 
-                self.cmd_vel.linear.x = 0.2
+                self.cmd_vel.linear.x = linear - 0.05  # Slow down
                 self.cmd_vel.angular.z = angular
 
                 # Publish the processed image
@@ -243,10 +262,18 @@ class MoveLine(Node):
 
     
     def process_image(self, img):
-        # Get x and y coordinates of the center of the line in the upper part of the image
-        detected_img2, center_upper = self.detect_upper_bound(img)
         # Get x and y coordinates of the center of the line in the lower part of the image
-        detected_img, center_lower = self.detect_lower_bound(img)
+        x,y,w,h = self.detect_lower_bound(img)
+        # Get x and y coordinates of the center of the line in the upper part of the image
+        x2,y2,w2,h2 = self.detect_upper_bound(img, x)
+
+        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        center_lower = (x + w // 2, y + h // 2)
+        cv2.circle(img, center_lower, 2, (0, 255, 0), -1)
+
+        cv2.rectangle(img, (x2, y2), (x2 + w2, y2 + h2), (0, 255, 0), 2)
+        center_upper = (x2 + w2 // 2, y2 + h2 // 2)
+        cv2.circle(img, center_upper, 2, (0, 255, 0), -1)
 
         # Draw a line between the two centers
         cv2.line(img, center_lower, center_upper, (0, 255, 255), 1)
@@ -257,27 +284,38 @@ class MoveLine(Node):
 
         # Calculate the angle between the two centers
         angle = np.arctan2(center_upper[1] - center_lower[1], center_upper[0] - center_lower[0])
-        angle = np.degrees(angle)  # Convert to degrees
+        angle = np.degrees(angle) + 90.0  # Convert to degrees
+
+        direction = "Straight"  # Default direction
+        if angle > 10:
+            cv2.putText(img, "Turn Right", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
+            direction = "Right"
+        elif angle < -10:
+            cv2.putText(img, "Turn Left", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
+            direction = "Left"
+        elif (-10 <= angle <= 10) and (img.shape[1] // 2 - 20 <= center_lower[0] <= img.shape[1] // 2 + 20):
+            cv2.putText(img, "Go Straight", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
+            direction = "Straight"
+        else:
+            cv2.putText(img, "------", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
 
 
 
         cv2.putText(img, f"Angle: {angle:.2f}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
         
 
-        
-
-        return img, center_lower
+        return img, center_lower, direction
     
-    def detect_upper_bound(self, original_img):
+    def detect_upper_bound(self, original_img, x):
         grayimg = cv2.cvtColor(original_img, cv2.COLOR_BGR2GRAY)
         # Crop the image to get the upper part of the image
         height, width = grayimg.shape[:2]
         # Get top bound 
-        start_row = int(height * (4/10))  
-        end_row = int(height * (5/10))
+        start_row = int(height * (5/10))  
+        end_row = int(height * (6/10))
         # Get horizontally the whole image
-        start_col = 0
-        end_col = width
+        start_col = np.clip(x - 20, 0, width)
+        end_col = np.clip(x + 35, 0, width)
         grayimg = grayimg[start_row:end_row, start_col:end_col]
 
         cv2.imshow("Upper Bound", grayimg)
@@ -285,7 +323,7 @@ class MoveLine(Node):
         # Apply Gaussian blur to the image
         blurred = cv2.GaussianBlur(grayimg, (5, 5), 0)
         # Apply a threshold
-        _, thresh = cv2.threshold(blurred, 65, 255, cv2.THRESH_BINARY_INV)
+        _, thresh = cv2.threshold(blurred, 80, 255, cv2.THRESH_BINARY_INV)
 
         # Apply morphological operations to remove noise
         thresh = cv2.erode(thresh, None, iterations=2)
@@ -299,14 +337,19 @@ class MoveLine(Node):
             c = max(contours, key=cv2.contourArea) 
             x, y, w, h = cv2.boundingRect(c)
             y += start_row
+            # Adjust x coordinate to match original image
+            x += start_col
             #cv2.rectangle(original_img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            center = (x + w // 2, y + h // 2)
-            cv2.circle(original_img, center, 2, (0, 255, 0), -1)
+            #center = (x + w // 2, y + h // 2)
+            #cv2.circle(original_img, center, 2, (0, 255, 0), -1)
         else:
-            center = (width // 2, height // 2)
+            if x > width // 2:
+                x,y,w,h = (width, height // 2, 0, 0)
+            elif x <= width // 2:
+                x,y,w,h = (0, height // 2, 0, 0)
 
 
-        return original_img, center
+        return x,y,w,h
 
     
     def detect_lower_bound(self, original_img):
@@ -342,13 +385,13 @@ class MoveLine(Node):
             c = max(contours, key=cv2.contourArea) 
             x, y, w, h = cv2.boundingRect(c)
             y += start_row # Adjust y coordinate to match original image
-            cv2.rectangle(original_img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            center = (x + w // 2, y + h // 2)
-            cv2.circle(original_img, center, 2, (0, 255, 0), -1)
+            #cv2.rectangle(original_img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            #center = (x + w // 2, y + h // 2)
+            #cv2.circle(original_img, center, 2, (0, 255, 0), -1)
         else:
-            center = (width // 2, height // 2)
+            x,y,w,h = (width // 2, height // 2, 0, 0)
 
-        return original_img, center
+        return x, y, w, h
     
 def main(args=None):
     rclpy.init(args=args)
