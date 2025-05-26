@@ -15,7 +15,7 @@ class TrafficDetector(Node):
         self.bridge = CvBridge() 
 
         # Subscriptions
-        self.declare_parameter('simulated_camera', True) # Set to True if using simulated robot
+        self.declare_parameter('simulated_camera', False) # Set to True if using simulated robot
         self.simulated = self.get_parameter('simulated_camera').value
         if self.simulated:
             self.get_logger().info('Using simulated robot')
@@ -34,9 +34,9 @@ class TrafficDetector(Node):
 
         # Parameters for the color detection, HSV color space
         # First 3 are lower bounds, last 3 are upper bounds
-        self.declare_parameter('Red_HSV', [0, 133, 105, 34, 255, 255]) 
-        self.declare_parameter('Green_HSV', [35, 133, 105, 80, 255, 255])
-        self.declare_parameter('Yellow_HSV', [22, 133, 105, 52, 255, 255])
+        self.declare_parameter('Red_HSV', [0, 36, 138, 20, 255, 255]) 
+        self.declare_parameter('Green_HSV', [60, 55, 104, 81, 255, 255])
+        self.declare_parameter('Yellow_HSV', [22, 96, 71, 31, 255, 255])
 
         red_hsv = self.get_parameter('Red_HSV').value
         green_hsv = self.get_parameter('Green_HSV').value
@@ -61,7 +61,7 @@ class TrafficDetector(Node):
 
          
         self.image_received_flag = False #This flag is to ensure we received at least one image  
-        dt = 0.05 # 20Hz
+        dt = 0.2 
         self.timer = self.create_timer(dt, self.timer_callback) 
         self.get_logger().info('Node started!!!') 
 
@@ -98,52 +98,56 @@ class TrafficDetector(Node):
   
     def timer_callback(self): 
         if self.image_received_flag: 
-            self.image_received_flag=False 
-            # Resize the image to 160x120 
-            #resized_image = cv2.resize(self.cv_img, (160,120)) #(width, height) 
-            # Add some text to the image 
-            #cv2.putText(resized_image, "Holo", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2) 
+            self.image_received_flag = False 
 
-            # Convert the image to HSV color space
+            # Convert image to HSV and equalize V channel
             hsv_image = cv2.cvtColor(self.cv_img, cv2.COLOR_BGR2HSV)
-            # Apply Gaussian blur to the image
+            hsv_image[..., 2] = cv2.equalizeHist(hsv_image[..., 2])
+
+            # Gaussian blur
             blurred_image = cv2.GaussianBlur(hsv_image, (5, 5), 0)
-            # Create a mask for each color
+
+            # Create and clean masks
             red_mask = cv2.inRange(blurred_image, self.red_lower_bound, self.red_upper_bound)
             green_mask = cv2.inRange(blurred_image, self.green_lower_bound, self.green_upper_bound)
             yellow_mask = cv2.inRange(blurred_image, self.yellow_lower_bound, self.yellow_upper_bound)
-            # Apply morphological operations to remove noise
+
             for mask in [red_mask, green_mask, yellow_mask]:
-                mask = cv2.erode(mask, None, iterations=4)
-                mask = cv2.dilate(mask, None, iterations=4)
-            # Combine the masks
-            combined_mask = cv2.bitwise_or(red_mask, green_mask)
-            combined_mask = cv2.bitwise_or(combined_mask, yellow_mask)
-            
-            result = cv2.bitwise_and(self.cv_img, self.cv_img, mask=combined_mask)
+                mask[:] = cv2.erode(mask, None, iterations=2)
+                mask[:] = cv2.dilate(mask, None, iterations=2)
 
-            # Find contours in each color mask
-            red_contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            green_contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            yellow_contours, _ = cv2.findContours(yellow_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            masks = {'red': red_mask, 'green': green_mask, 'yellow': yellow_mask}
+            result = self.cv_img.copy()
 
-            contours = [red_contours, green_contours, yellow_contours]
-            
-            for color, cnts in zip(['red', 'green', 'yellow'], contours):
-                for cnt in cnts:
-                    area = cv2.contourArea(cnt)
-                    if area > self.area_min:
-                        # Draw the bounding box around the detected light
-                        x, y, w, h = cv2.boundingRect(cnt)
-                        cv2.rectangle(result, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                        center = (x + w // 2, y + h // 2)
-                        cv2.circle(result, center, 5, (0, 255, 0), -1)
-                        cv2.putText(result, f'{color} light', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-                        # Publish the detected color
+            # Show masks
+            #cv2.imshow()
+
+            for color, mask in masks.items():
+                # Detect circles
+                circles = cv2.HoughCircles(
+                    mask,
+                    cv2.HOUGH_GRADIENT,
+                    dp=1.2,
+                    minDist=5,
+                    param1=50,
+                    param2=10,
+                    minRadius=3,
+                    maxRadius=20
+                )
+
+                # If circles are found, pick the largest one
+                if circles is not None:
+                    circles = np.uint16(np.around(circles))
+                    largest_circle = max(circles[0, :], key=lambda c: c[2])  # c[2] is radius
+                    x, y, r = largest_circle
+                    if r > 0:
+                        cv2.circle(result, (x, y), r, (0, 255, 0), 2)
+                        cv2.circle(result, (x, y), 2, (0, 0, 255), 3)
+                        cv2.putText(result, f'{color} circle', (x - 10, y - r - 10),
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                         self.trafic_light_pub.publish(String(data=color))
 
-            self.pub.publish(self.bridge.cv2_to_imgmsg(result,'bgr8')) 
- 
+            #self.pub.publish(self.bridge.cv2_to_imgmsg(result, 'bgr8'))
 
       
 
