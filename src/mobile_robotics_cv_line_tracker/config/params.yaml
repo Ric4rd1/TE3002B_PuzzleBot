@@ -1,0 +1,31 @@
+move_line_traffic:
+  ros__parameters:
+    use_sim_time: False
+    simulated_camera: False
+    linear_speed: 0.15
+    angular_speed: 1.0
+
+stopLight_detector:
+  ros__parameters:
+    use_sim_time: False
+    simulated_camera: False
+    # HSV values [h_min, s_min, v_min, h_max, s_max, v_max]
+    # Using Simulator
+    #Red_HSV: [0, 133, 105, 20, 255, 255]
+    #Green_HSV: [35, 133, 105, 80, 255, 255]
+    #Yellow_HSV: [22, 133, 105, 52, 255, 255]
+    # Using phone image
+    #Red_HSV: [0,113,198,19,255,255]
+    #Green_HSV: [52,152,85,77,255,224]
+    #Yellow_HSV: [22,200,137,49,255,241]
+    # Using leds
+    # At home
+    #Red_HSV: [0, 36, 138, 20, 255, 255]
+    #Green_HSV: [60, 46, 73, 81, 255, 255]
+    #Yellow_HSV: [22, 96, 71, 31, 255, 255]
+    # At school
+    Red_HSV: [0, 85, 138, 20, 255, 255]
+    Green_HSV: [60, 46, 73, 81, 255, 255]
+    Yellow_HSV: [9, 56, 124, 17, 255, 255]
+
+

@@ -9,7 +9,8 @@ class HSVTuner(Node):
     def __init__(self):
         super().__init__('hsv_tuner')
         self.bridge = CvBridge()
-        self.subscription = self.create_subscription(Image, '/video_source/raw', self.image_callback, 10)
+        #self.subscription = self.create_subscription(Image, '/video_source/raw', self.image_callback, 10) # Puzzlebot
+        self.subscription = self.create_subscription(Image, '/camera', self.image_callback, 10) # Simulated robot
         self.image = None
 
         # Create OpenCV window and trackbars
