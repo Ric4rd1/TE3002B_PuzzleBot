@@ -323,7 +323,8 @@ class MoveLine(Node):
         # Apply Gaussian blur to the image
         blurred = cv2.GaussianBlur(grayimg, (5, 5), 0)
         # Apply a threshold
-        _, thresh = cv2.threshold(blurred, 80, 255, cv2.THRESH_BINARY_INV)
+        #_, thresh = cv2.threshold(blurred, 80, 255, cv2.THRESH_BINARY_INV)
+        _, thresh = cv2.threshold(blurred, 120, 255, cv2.THRESH_BINARY_INV)
 
         # Apply morphological operations to remove noise
         thresh = cv2.erode(thresh, None, iterations=2)
@@ -370,7 +371,8 @@ class MoveLine(Node):
         blurred = cv2.GaussianBlur(grayimg, (5, 5), 0)
 
         # Apply a threshold 
-        _, thresh = cv2.threshold(blurred, 60, 255, cv2.THRESH_BINARY_INV)
+        #_, thresh = cv2.threshold(blurred, 60, 255, cv2.THRESH_BINARY_INV)
+        _, thresh = cv2.threshold(blurred, 80, 255, cv2.THRESH_BINARY_INV)
 
         # Apply morphological operations to remove noise
         thresh = cv2.erode(thresh, None, iterations=2)  

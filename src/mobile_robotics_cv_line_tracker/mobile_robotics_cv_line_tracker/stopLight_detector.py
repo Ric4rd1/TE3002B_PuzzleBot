@@ -34,9 +34,13 @@ class TrafficDetector(Node):
 
         # Parameters for the color detection, HSV color space
         # First 3 are lower bounds, last 3 are upper bounds
-        self.declare_parameter('Red_HSV', [0, 36, 138, 20, 255, 255]) 
-        self.declare_parameter('Green_HSV', [60, 55, 104, 81, 255, 255])
-        self.declare_parameter('Yellow_HSV', [22, 96, 71, 31, 255, 255])
+        # At home
+        #self.declare_parameter('Red_HSV', [0, 36, 138, 20, 255, 255]) 
+        #self.declare_parameter('Green_HSV', [60, 46, 73, 81, 255, 255])
+        #self.declare_parameter('Yellow_HSV', [22, 96, 71, 31, 255, 255])
+        self.declare_parameter('Red_HSV', [0, 85, 138, 20, 255, 255]) 
+        self.declare_parameter('Green_HSV', [60, 46, 73, 81, 255, 255])
+        self.declare_parameter('Yellow_HSV', [9, 56, 124, 17, 255, 255])
 
         red_hsv = self.get_parameter('Red_HSV').value
         green_hsv = self.get_parameter('Green_HSV').value
@@ -129,10 +133,10 @@ class TrafficDetector(Node):
                     cv2.HOUGH_GRADIENT,
                     dp=1.2,
                     minDist=5,
-                    param1=50,
+                    param1=2,
                     param2=10,
-                    minRadius=3,
-                    maxRadius=20
+                    minRadius=2,
+                    maxRadius=12
                 )
 
                 # If circles are found, pick the largest one
@@ -147,7 +151,7 @@ class TrafficDetector(Node):
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                         self.trafic_light_pub.publish(String(data=color))
 
-            #self.pub.publish(self.bridge.cv2_to_imgmsg(result, 'bgr8'))
+            self.pub.publish(self.bridge.cv2_to_imgmsg(result, 'bgr8'))
 
       
 
