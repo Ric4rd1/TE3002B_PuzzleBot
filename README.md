@@ -28,11 +28,54 @@ Mini Challenge 2 builds upon the tasks from Mini Challenge 1 by incorporating **
 
 A **new localization node** is introduced to estimate the robot’s position in real-time based on encoder feedback, significantly improving trajectory accuracy and robustness.
 
-
-
 The implementation for Mini Challenge 2 is located in the `mobile_robotics_closed_loop` package and can be launched using the following files:
 - **Closed-Loop Square Path**: `move_square.launch.py`
 - **Closed-Loop Custom Path**: `move_path.launch.py`
+
+## Mini Challenge 3 🎯⚡
+
+Mini Challenge 3 focuses on **closed-loop point-to-point navigation enhanced with visual traffic light detection**. The robot must navigate to predefined points using improved odometry and control logic, while also reacting to **color-based traffic lights** detected via its camera.
+
+### Objectives
+- Navigate to target points using closed-loop control.
+- React to visual cues as traffic lights:
+  - 🟢 **Green**: Continue moving.
+  - 🟡 **Yellow**: Slow down.
+  - 🔴 **Red**: Stop completely.
+
+### Implementation Highlights
+- **Color Detection Pipeline**:
+  1. Apply Gaussian blur to the image.
+  2. Convert to HSV and generate masks for red, yellow, and green.
+  3. Use morphological operations (erode & dilate) to reduce noise.
+  4. Perform blob detection to locate colored regions.
+
+The code for Mini Challenge 3 is located in the `mobile_robotics_cv` package, and can be launched using the following launch files:
+- **Point 2 Point reacting to colors**: `move_traffic_points.launch.py`
+
+## Mini Challenge 4 🎯⚡
+
+Mini Challenge 4 integrates **vision-based line following** with **traffic light detection**, requiring the robot to navigate a predefined track while obeying LED-based traffic signals.
+
+### Objectives
+- Follow a black line on a white surface using camera input.
+- React to LED traffic lights using a custom-trained YOLOv8 model:
+  - **Green**: Move forward.
+  - **Yellow**: Slow down.
+  - **Red**: Stop.
+
+### Methodology
+- Two **Regions of Interest (ROIs)** were defined:
+  - One near the bottom of the frame to detect the line close to the robot.
+  - A second in the middle of the frame to help calculate the heading error and detect corners.
+- **Thresholding** was applied to isolate the black line.
+- **Blob detection** was used to find the line and compute its centroid.
+- The **angle between blobs** was used to infer corners and adjust heading.
+- **Traffic lights** were detected using a **custom-trained YOLOv8 model**, allowing reliable identification of red, yellow, and green LED signals in real-time.
+
+The code for Mini Challenge 4 is located in the `mobile_robotics_cv_line_tracker` package, and can be launched using the following launch files:
+- **Line follower**: `move_line_traffic.launch.py`
+- Ran directly on the **Puzzlebot** to minimize camera lag and improve real-time performance.
 
 ## Puzzlebot Hardware ⚙️
 
