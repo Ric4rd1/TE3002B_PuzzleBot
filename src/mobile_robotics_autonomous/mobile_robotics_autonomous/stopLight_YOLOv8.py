@@ -12,7 +12,7 @@ from rclpy.qos import qos_profile_sensor_data
 class YoloInference(Node):
     def __init__(self):
         super().__init__('yolo_node')
-        self.model = YOLO('/home/ricard/ros2_ws_puzzlebot/src/mobile_robotics_cv_line_tracker/models/best.pt')  # Load the YOLOv8 model
+        self.model = YOLO('/home/ricard/ros2_ws_puzzlebot/src/mobile_robotics_autonomous/models/LightsV1.pt')  # Load the YOLOv8 model
         self.bridge = CvBridge()
 
         self.sub = self.create_subscription(Image, 'video_source/raw', self.camera_callback, 10) # For Puzzlebot
@@ -20,7 +20,7 @@ class YoloInference(Node):
         self.yolo_img_pub =  self.create_publisher(Image, 'processed_img_traffic', qos_profile=qos_profile_sensor_data) 
 
         self.img = None
-        timer_period = 0.2
+        timer_period = 0.1
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
     def camera_callback(self, msg):
@@ -41,7 +41,7 @@ class YoloInference(Node):
         frame = results[0].plot()
 
         # Publish annotated image
-        #self.yolo_img_pub.publish(self.bridge.cv2_to_imgmsg(frame, encoding='bgr8'))
+        self.yolo_img_pub.publish(self.bridge.cv2_to_imgmsg(frame, encoding='bgr8'))
 
         # Publish class name
         for r in results:

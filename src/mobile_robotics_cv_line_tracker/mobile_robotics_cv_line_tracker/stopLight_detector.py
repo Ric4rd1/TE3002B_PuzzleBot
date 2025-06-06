@@ -38,9 +38,9 @@ class TrafficDetector(Node):
         #self.declare_parameter('Red_HSV', [0, 36, 138, 20, 255, 255]) 
         #self.declare_parameter('Green_HSV', [60, 46, 73, 81, 255, 255])
         #self.declare_parameter('Yellow_HSV', [22, 96, 71, 31, 255, 255])
-        self.declare_parameter('Red_HSV', [0, 85, 138, 20, 255, 255]) 
-        self.declare_parameter('Green_HSV', [60, 46, 73, 81, 255, 255])
-        self.declare_parameter('Yellow_HSV', [9, 56, 124, 17, 255, 255])
+        self.declare_parameter('Red_HSV', [0, 42, 240, 14, 255, 255]) 
+        self.declare_parameter('Green_HSV', [70, 43, 212, 86, 255, 255])
+        self.declare_parameter('Yellow_HSV', [15, 36, 223, 21, 255, 255])
 
         red_hsv = self.get_parameter('Red_HSV').value
         green_hsv = self.get_parameter('Green_HSV').value

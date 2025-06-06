@@ -15,7 +15,7 @@ class ImageDataCollector(Node):
         self.latest_frame = None
 
         # Base dataset path
-        self.base_path = "/home/ricard/ros2_ws_puzzlebot/src/mobile_robotics_cv_line_tracker/dataset"
+        self.base_path = "/home/ricard/ros2_ws_puzzlebot/src/mobile_robotics_cv_line_tracker/dataset_LightsV2"
         os.makedirs(self.base_path, exist_ok=True)
 
         self.get_logger().info("Image data collector node started!")
