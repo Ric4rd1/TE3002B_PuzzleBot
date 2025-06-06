@@ -23,7 +23,6 @@ Makefile
 # ROS-specific
 ament_cmake_environment_hooks/
 local_setup.*
-setup.*
 *.launch.pyc
 
 # VSCode config (optional)
