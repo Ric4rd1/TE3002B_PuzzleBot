@@ -21,7 +21,7 @@ class YoloInference(Node):
         self.yolo_img_pub =  self.create_publisher(Image, 'processed_img_signs', qos_profile=qos_profile_sensor_data) 
 
         self.img = None
-        timer_period = 0.2
+        timer_period = 0.08
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
     def camera_callback(self, msg):
@@ -51,14 +51,14 @@ class YoloInference(Node):
                 msg = String()
                 msg.data = class_name
 
-                if class_name == 'stop' and box.conf < 0.9:
+                if class_name == 'stop' and box.conf < 0.85:
                     #self.get_logger().info(f'Low confidence for class {class_name}: {box.conf}')
                     continue
-                elif box.conf < 0.6:
+                elif box.conf < 0.5:
                     #self.get_logger().info(f'Low confidence for class {class_name}: {box.conf}')
                     continue
 
-                if class_name in ["construction", "give_way"]:
+                if class_name in ["construction", "give_way","stop"]:
                     self.pub2.publish(String(data=class_name))
                 
                 self.pub.publish(msg)

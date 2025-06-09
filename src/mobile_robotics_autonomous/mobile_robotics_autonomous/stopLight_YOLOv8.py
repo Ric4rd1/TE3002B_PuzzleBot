@@ -20,7 +20,7 @@ class YoloInference(Node):
         self.yolo_img_pub =  self.create_publisher(Image, 'processed_img_traffic', qos_profile=qos_profile_sensor_data) 
 
         self.img = None
-        timer_period = 0.1
+        timer_period = 0.08
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
     def camera_callback(self, msg):
@@ -41,7 +41,7 @@ class YoloInference(Node):
         frame = results[0].plot()
 
         # Publish annotated image
-        self.yolo_img_pub.publish(self.bridge.cv2_to_imgmsg(frame, encoding='bgr8'))
+        #self.yolo_img_pub.publish(self.bridge.cv2_to_imgmsg(frame, encoding='bgr8'))
 
         # Publish class name
         for r in results:

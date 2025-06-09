@@ -1,7 +1,7 @@
 import rclpy 
 from rclpy.node import Node 
 from geometry_msgs.msg import Pose2D 
-from std_msgs.msg import Float32, Bool
+from std_msgs.msg import Float32, Bool, String
 from rclpy import qos 
 import numpy as np 
  
@@ -17,6 +17,7 @@ class Odometry(Node):
         self.create_subscription(Float32, "VelocityEncR",  self.wr_cb, qos.qos_profile_sensor_data)  
         self.create_subscription(Float32, "VelocityEncL",  self.wl_cb, qos.qos_profile_sensor_data)  
         self.create_subscription(Bool, "odom_switch", self.odom_switch_callback, 10)
+        self.create_subscription(String, "confirm", self.confirm_callback, 10)
         ############ ROBOT CONSTANTS ################  
         self.r=0.0505 #wheel radius for our simulated robot[m] 
         self.L=0.175 #wheel separation for our simulated robot [m] 
@@ -37,12 +38,21 @@ class Odometry(Node):
         self.create_timer(timer_period, self.main_timer_cb) 
         self.get_logger().info("Node initialized!!") 
 
+    def confirm_callback(self, msg):
+        if msg.data == "OK":
+            self.start = False
+            self.x = 0.0 
+            self.y = 0.0  
+            self.theta = 0.0
+            self.get_logger().info("Reseting Odometry...")
+
     def odom_switch_callback(self, msg):
         if msg.data == True:
             self.start = True
             # Restart initial position
             self.x = 0.0 
             self.y = 0.0  
+            self.theta = 0.0
             self.get_logger().info("Starting Odometry")
         elif msg.data == False:
             self.start = False
@@ -72,7 +82,8 @@ class Odometry(Node):
         else:
             self.wl = 0.0
         '''
-        self.wl = wl.data
+        if self.start:
+            self.wl = wl.data
          
     def wr_cb(self, wr):  
         ## This function receives the right wheel speed from the encoders
@@ -82,7 +93,8 @@ class Odometry(Node):
         else:
             self.wr = 0.0
         ''' 
-        self.wr = wr.data
+        if self.start:
+            self.wr = wr.data
  
     def get_robot_velocity(self, wl, wr): 
         v = self.r * (wr + wl) / 2.0 #Compute the robot linear velocity [m/s] 

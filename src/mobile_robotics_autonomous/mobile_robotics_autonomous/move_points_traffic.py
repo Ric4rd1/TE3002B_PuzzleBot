@@ -10,8 +10,6 @@ import signal
 import sys
 import time
  
-# Move point to point, 4 points total (closed loop) points are given topic /point
-
 class MovePoints(Node): 
     def __init__(self): 
         super().__init__('move_points_traffic')
@@ -26,8 +24,8 @@ class MovePoints(Node):
         # Publishers
         # Publisher for sending velocity commands
         self.cmd_vel_pub = self.create_publisher(Twist, "cmd_vel", 10) 
-        # Publisher for sending confirmation to get next point
-        self.confirmation_pub = self.create_publisher(String, "confirmation", 10)
+        # Publisher for sending intersection completion confrim
+        self.confirmation_pub = self.create_publisher(String, "confirm", 10)
         # Publisher for activating odom node
         self.odom_switch_pub = self.create_publisher(Bool, "odom_switch", 10)
 
@@ -155,6 +153,7 @@ class MovePoints(Node):
         if self.state == "wait": 
             # Wait for initial localization (odometry) pose
             if self.start:
+                time.sleep(0.5)
                 self.odom_switch_pub.publish(Bool(data=True)) # Turn odometry on
                 self.state = "correct"
                 self.start = False
@@ -170,12 +169,16 @@ class MovePoints(Node):
                 self.cmd_vel.angular.z = ang_vel
                 self.cmd_vel_pub.publish(self.cmd_vel)
 
-                if self.distance_error < 0.02 and abs(self.yaw_error) < 0.1: #Check if the robot is close to the setpoint
+                if self.distance_error < 0.02: #Check if the robot is close to the setpoint
                     # Log current position
                     self.get_logger().info(f'Current position: {self.x}x, {self.y}y, {self.theta}rad\n')
                     # Stop the robot
                     stop=Twist()
                     self.cmd_vel_pub.publish(stop)
+                    self.cmd_vel_pub.publish(stop)
+                    self.cmd_vel_pub.publish(stop)
+                    self.cmd_vel_pub.publish(stop)
+                    time.sleep(0.2)
                     self.state = "evaluate"
                     self.get_logger().info("Evaluating...")
 
@@ -220,7 +223,10 @@ class MovePoints(Node):
                 self.get_logger().info("Moving finished")
                 # Send confirmation message and wait for next point
                 self.state = "wait" 
+                self.traffic_light = 'red' 
+                self.traffic_sign = 'right'
                 self.recieved_initial_pose = False
+                time.sleep(0.5)
                 self.confirmation_pub.publish(String(data='OK')) # Publish confirmation message
                 self.get_logger().info("Confirmation message sent")
             

@@ -89,7 +89,7 @@ class MoveLine(Node):
         self.prev_error_straight = 0
 
         # Base velocities
-        self.declare_parameter('linear_speed', 0.15)
+        self.declare_parameter('linear_speed', 0.12)
         self.declare_parameter('angular_speed', 1.0)
 
         self.linear_speed = self.get_parameter('linear_speed').value
@@ -170,7 +170,7 @@ class MoveLine(Node):
         self.error_straight[1] = self.error_straight[0]
         self.u_straight[1] = self.u_straight[0]
 
-        return 0.19, self.u_straight[0]  # Return linear speed and angular speed
+        return 0.15, self.u_straight[0]  # Return linear speed and angular speed
 
     def traffic_signs_callback(self, msg):
         sign = msg.data
@@ -180,12 +180,13 @@ class MoveLine(Node):
             self.restart_slow_timer()
         elif sign == 'stop':
             self.get_logger().info('Detected: STOP -> full stop, arrived to the end of the track')
+            self.state = 'finish'
             # implement stop behavior 
 
     def restart_slow_timer(self):
         if self.slow_timer is not None:
             self.slow_timer.cancel()
-        self.slow_timer = Timer(1.0, self.slow_timer_callback)
+        self.slow_timer = Timer(2.0, self.slow_timer_callback)
         self.slow_timer.start()
 
     def slow_timer_callback(self):
@@ -235,6 +236,13 @@ class MoveLine(Node):
                     self.cmd_vel.linear.x = 0.0
                     self.cmd_vel.angular.z = 0.0
                     self.pub.publish(self.cmd_vel)
+                    self.pub.publish(self.cmd_vel)
+                    self.pub.publish(self.cmd_vel)
+                    self.pub.publish(self.cmd_vel)
+                    self.pub.publish(self.cmd_vel)
+                    self.pub.publish(self.cmd_vel)
+                    self.pub.publish(self.cmd_vel)
+                    self.pub.publish(self.cmd_vel)
                     self.intersection_detection_pub.publish(String(data='intersection'))
                 else:
                     # Calculate the control command
@@ -248,8 +256,8 @@ class MoveLine(Node):
                     self.cmd_vel.angular.z = angular
 
                     # Publish the processed image
-                    #self.pub_img.publish(self.bridge.cv2_to_imgmsg(proccessed_img, 'bgr8'))
-                    proccessed_img = cv2.resize(proccessed_img, (800, 600))
+                    self.pub_img.publish(self.bridge.cv2_to_imgmsg(proccessed_img, 'bgr8'))
+                    #proccessed_img = cv2.resize(proccessed_img, (800, 600))
                     #cv2.imshow("Proccessed img",proccessed_img)
                     #cv2.waitKey(1)
                     # Publish the control command
@@ -275,7 +283,7 @@ class MoveLine(Node):
                     self.cmd_vel.angular.z = angular
 
                     # Publish the processed image
-                    #self.pub_img.publish(self.bridge.cv2_to_imgmsg(proccessed_img, 'bgr8'))
+                    self.pub_img.publish(self.bridge.cv2_to_imgmsg(proccessed_img, 'bgr8'))
                     proccessed_img = cv2.resize(proccessed_img, (800, 600))
                     #cv2.imshow("Proccessed img",proccessed_img)
                     #cv2.waitKey(1)
@@ -287,6 +295,12 @@ class MoveLine(Node):
                 self.state = 'move' 
                 self.intersection_confirmation = False
             pass
+
+        elif self.state == 'finish':
+            self.cmd_vel.linear.x = 0.0
+            self.cmd_vel.angular.z = 0.0
+            self.pub.publish(self.cmd_vel)
+
 
         # Publish the linear and angular speeds
         self.linear_speed_pub.publish(Float32(data=self.cmd_vel.linear.x))
@@ -360,7 +374,8 @@ class MoveLine(Node):
         # Apply Gaussian blur to the image
         blurred = cv2.GaussianBlur(grayimg, (5, 5), 0)
         # Apply a threshold
-        _, thresh = cv2.threshold(blurred, 120, 255, cv2.THRESH_BINARY_INV)
+        #_, thresh = cv2.threshold(blurred, 120, 255, cv2.THRESH_BINARY_INV) # school
+        _, thresh = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY_INV)
 
         # Apply morphological operations to remove noise
         thresh = cv2.erode(thresh, None, iterations=2)
@@ -400,8 +415,8 @@ class MoveLine(Node):
         # Apply Gaussian blur to the image
         blurred = cv2.GaussianBlur(grayimg, (5, 5), 0)
         # Apply a threshold
-        #_, thresh = cv2.threshold(blurred, 80, 255, cv2.THRESH_BINARY_INV)
-        _, thresh = cv2.threshold(blurred, 120, 255, cv2.THRESH_BINARY_INV)
+        _, thresh = cv2.threshold(blurred, 80, 255, cv2.THRESH_BINARY_INV)
+        #_, thresh = cv2.threshold(blurred, 120, 255, cv2.THRESH_BINARY_INV) # Escuela
 
         # Apply morphological operations to remove noise
         thresh = cv2.erode(thresh, None, iterations=2)

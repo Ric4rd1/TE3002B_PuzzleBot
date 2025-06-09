@@ -15,7 +15,7 @@ setup(
         (os.path.join('share', package_name, 'launch'), glob(os.path.join('launch', '*launch.[pxy][yma]*'))), 
         (os.path.join('share', package_name, 'config'), glob(os.path.join('config', '*.[yma]*'))),
     ],
-    install_requires=['setuptools'],
+    install_requires=['setuptools','custom_interfaces'],
     zip_safe=True,
     maintainer='ricard',
     maintainer_email='ric4rd11@gmail.com',
