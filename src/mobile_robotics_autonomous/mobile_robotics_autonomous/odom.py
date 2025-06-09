@@ -41,9 +41,11 @@ class Odometry(Node):
     def confirm_callback(self, msg):
         if msg.data == "OK":
             self.start = False
-            self.x = 0.0 
-            self.y = 0.0  
-            self.theta = 0.0
+            self.wl = 0.0 #Left wheel speed [rad/s] 
+            self.wr = 0.0 #Right wheel speed [rad/s] 
+            self.x = 0.0 #Robot position in x-axis [m] 
+            self.y = 0.0 #Robot position in y-axis [m] 
+            self.theta = 0.0 #Robot orientation [rad] 
             self.get_logger().info("Reseting Odometry...")
 
     def odom_switch_callback(self, msg):

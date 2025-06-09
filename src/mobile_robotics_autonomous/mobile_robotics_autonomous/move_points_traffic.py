@@ -153,8 +153,8 @@ class MovePoints(Node):
         if self.state == "wait": 
             # Wait for initial localization (odometry) pose
             if self.start:
-                time.sleep(0.5)
                 self.odom_switch_pub.publish(Bool(data=True)) # Turn odometry on
+                time.sleep(2)
                 self.state = "correct"
                 self.start = False
                 self.setpoint = [0.1, 0.0]

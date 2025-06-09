@@ -174,7 +174,7 @@ class MoveLine(Node):
 
     def traffic_signs_callback(self, msg):
         sign = msg.data
-        if sign in ['give_way', 'construction']:
+        if sign in ['give_way', 'construction'] and self.state != "wait":
             self.get_logger().info(f'Detected: {sign} -> slow mode ON (timer restarted)')
             self.state = 'move_slow'
             self.restart_slow_timer()
@@ -236,13 +236,15 @@ class MoveLine(Node):
                     self.cmd_vel.linear.x = 0.0
                     self.cmd_vel.angular.z = 0.0
                     self.pub.publish(self.cmd_vel)
+                    time.sleep(0.15)
                     self.pub.publish(self.cmd_vel)
+                    time.sleep(0.15)
                     self.pub.publish(self.cmd_vel)
+                    time.sleep(0.15)
                     self.pub.publish(self.cmd_vel)
+                    time.sleep(0.15)
                     self.pub.publish(self.cmd_vel)
-                    self.pub.publish(self.cmd_vel)
-                    self.pub.publish(self.cmd_vel)
-                    self.pub.publish(self.cmd_vel)
+                    time.sleep(0.5)
                     self.intersection_detection_pub.publish(String(data='intersection'))
                 else:
                     # Calculate the control command
@@ -274,6 +276,15 @@ class MoveLine(Node):
                     self.cmd_vel.linear.x = 0.0
                     self.cmd_vel.angular.z = 0.0
                     self.pub.publish(self.cmd_vel)
+                    time.sleep(0.15)
+                    self.pub.publish(self.cmd_vel)
+                    time.sleep(0.15)
+                    self.pub.publish(self.cmd_vel)
+                    time.sleep(0.15)
+                    self.pub.publish(self.cmd_vel)
+                    time.sleep(0.15)
+                    self.pub.publish(self.cmd_vel)
+                    time.sleep(1)
                     self.intersection_detection_pub.publish(String(data='intersection'))
                 else:
                     # Calculate the control command
