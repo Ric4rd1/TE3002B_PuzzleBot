@@ -54,6 +54,8 @@ class YoloInference(Node):
                 if class_name == 'stop' and box.conf < 0.85:
                     #self.get_logger().info(f'Low confidence for class {class_name}: {box.conf}')
                     continue
+                elif class_name in ["give_way", "construction"] and box.conf < 0.7:
+                    continue
                 elif box.conf < 0.5:
                     #self.get_logger().info(f'Low confidence for class {class_name}: {box.conf}')
                     continue

@@ -386,11 +386,13 @@ class MoveLine(Node):
         blurred = cv2.GaussianBlur(grayimg, (5, 5), 0)
         # Apply a threshold
         #_, thresh = cv2.threshold(blurred, 120, 255, cv2.THRESH_BINARY_INV) # school
-        _, thresh = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY_INV)
+        _, thresh = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY_INV) # school2
+        #_, thresh = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY_INV)
 
         # Apply morphological operations to remove noise
         thresh = cv2.erode(thresh, None, iterations=2)
-        thresh = cv2.dilate(thresh, None, iterations=4)
+        # thresh = cv2.dilate(thresh, None, iterations=4)
+        thresh = cv2.dilate(thresh, None, iterations=2) # test
 
         #cv2.imshow("Thresholded CrossWalk Detection", thresh)
 
@@ -426,8 +428,8 @@ class MoveLine(Node):
         # Apply Gaussian blur to the image
         blurred = cv2.GaussianBlur(grayimg, (5, 5), 0)
         # Apply a threshold
-        _, thresh = cv2.threshold(blurred, 80, 255, cv2.THRESH_BINARY_INV)
-        #_, thresh = cv2.threshold(blurred, 120, 255, cv2.THRESH_BINARY_INV) # Escuela
+        #_, thresh = cv2.threshold(blurred, 80, 255, cv2.THRESH_BINARY_INV)
+        _, thresh = cv2.threshold(blurred, 120, 255, cv2.THRESH_BINARY_INV) # School
 
         # Apply morphological operations to remove noise
         thresh = cv2.erode(thresh, None, iterations=2)
@@ -475,7 +477,7 @@ class MoveLine(Node):
 
         # Apply a threshold 
         #_, thresh = cv2.threshold(blurred, 60, 255, cv2.THRESH_BINARY_INV)
-        _, thresh = cv2.threshold(blurred, 80, 255, cv2.THRESH_BINARY_INV)
+        _, thresh = cv2.threshold(blurred, 80, 255, cv2.THRESH_BINARY_INV) # School
 
         # Apply morphological operations to remove noise
         thresh = cv2.erode(thresh, None, iterations=2)  

@@ -156,6 +156,7 @@ class MovePoints(Node):
                 self.odom_switch_pub.publish(Bool(data=True)) # Turn odometry on
                 time.sleep(2)
                 self.state = "correct"
+                self.traffic_light = 'green' # In case there is no stop lights
                 self.start = False
                 self.setpoint = [0.1, 0.0]
                 self.get_logger().info("Correcting...")
@@ -223,7 +224,7 @@ class MovePoints(Node):
                 self.get_logger().info("Moving finished")
                 # Send confirmation message and wait for next point
                 self.state = "wait" 
-                self.traffic_light = 'red' 
+                #self.traffic_light = 'red' 
                 self.traffic_sign = 'right'
                 self.recieved_initial_pose = False
                 time.sleep(0.5)
