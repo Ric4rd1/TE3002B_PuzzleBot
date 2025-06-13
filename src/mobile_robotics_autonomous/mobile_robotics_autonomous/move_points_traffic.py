@@ -46,6 +46,7 @@ class MovePoints(Node):
         # Variables
         self.state = 'wait' # Initial state
         self.start = False
+        self.recieved_traffic_light = False
         self.traffic_light = 'red' # Initial traffic light state
         self.traffic_sign = 'right'
         self.recieved_initial_pose = False # Flag to check if the initial pose is received
@@ -77,6 +78,7 @@ class MovePoints(Node):
         sys.exit(0) # Exit the program 
 
     def stop_light_callback(self, msg):
+        self.recieved_traffic_light = True
         # Update traffic light state
         if self.traffic_light == msg.data:
             return
@@ -145,12 +147,25 @@ class MovePoints(Node):
             control_ang = np.sign(control_ang) * min_vel
         return control_ang
     
+    def pControl_ang(self, x, y, theta):
+        angle2goal = np.arctan2(self.setpoint[1] - y, self.setpoint[0] - x)
+        self.yaw_error = self.normalize_angle(angle2goal - theta)
+        control_ang = self.kp_angular * self.yaw_error
+        min_vel = 0.35
+        max_vel = self.vel_angular
+        if abs(control_ang) > max_vel:
+            control_ang = np.sign(control_ang) * max_vel
+        elif abs(control_ang) < min_vel:
+            control_ang = np.sign(control_ang) * min_vel
+        return control_ang
+    
 
     def timer_callback(self): 
         # Main loop, state machine
 
         # Initial state
         if self.state == "wait": 
+            
             # Wait for initial localization (odometry) pose
             if self.start:
                 self.odom_switch_pub.publish(Bool(data=True)) # Turn odometry on
@@ -158,6 +173,7 @@ class MovePoints(Node):
                 self.state = "correct"
                 self.traffic_light = 'green' # In case there is no stop lights
                 self.start = False
+                self.recieved_traffic_light = False
                 self.setpoint = [0.1, 0.0]
                 self.get_logger().info("Correcting...")
 
@@ -185,6 +201,23 @@ class MovePoints(Node):
 
         # Evaluate the conditions (traffic light and direction) 
         elif self.state == "evaluate":
+            
+            if self.recieved_traffic_light == False:
+                if self.traffic_sign == "straight":
+                    self.setpoint = [0.3, 0]
+                    self.state = "square_turn"
+                    self.get_logger().info("Going straight...")
+                elif self.traffic_sign == "left":
+                    self.setpoint = [0.3, 0.0]
+                    self.state = "square_turn"
+                    self.get_logger().info("Going to the left...")
+                elif self.traffic_sign == "right":
+                    self.setpoint = [0.3, 0.0]
+                    self.state = "square_turn"
+                    self.get_logger().info("Going to the right...")
+
+                self.decition = self.traffic_sign
+                return
 
             if self.traffic_light == "green":
                 if self.traffic_sign == "straight":
@@ -230,6 +263,40 @@ class MovePoints(Node):
                 time.sleep(0.5)
                 self.confirmation_pub.publish(String(data='OK')) # Publish confirmation message
                 self.get_logger().info("Confirmation message sent")
+
+        elif self.state ==  "square_turn":
+            if self.recieved_initial_pose:
+                lin_vel, ang_vel = self.pControl(self.x, self.y, self.theta)
+                # Publish control signals
+                self.cmd_vel.linear.x = lin_vel
+                self.cmd_vel.angular.z = ang_vel
+                self.cmd_vel_pub.publish(self.cmd_vel)
+
+                if self.distance_error < 0.02: #Check if the robot is close to the setpoint
+                    if self.decition == "left":
+                        self.setpoint = [0.3, 0.35]
+                    elif self.decition == "right":
+                        self.setpoint = [0.3, -0.35]
+                    elif self.decition == "left":
+                        self.setpoint = [0.6, 0.0]
+                    self.state = "square_turn2"
+
+        elif self.state == "square_turn2":
+            # Calculate control signals
+            ang_vel = self.pControl_ang(self.x, self.y, self.theta)
+            # Publish control signals
+            self.cmd_vel.linear.x = 0.0
+            self.cmd_vel.angular.z = ang_vel
+            self.cmd_vel_pub.publish(self.cmd_vel)
+            
+            # Check if the robot is close to the setpoint
+            if abs(self.yaw_error) < 0.05:
+                self.state = "move"
+                self.get_logger().info("Turning complete")
+                self.get_logger().info(f'Current position: {self.x}x, {self.y}y, {self.theta}rad\n')
+
+
+
             
         
                 

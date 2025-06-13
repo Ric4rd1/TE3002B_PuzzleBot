@@ -51,6 +51,8 @@ class MoveLine(Node):
         self.bridge = CvBridge()
         self.image_received_flag = False
         self.intersection_confirmation = False
+        self.timer_active = False
+        self.new_stop = True
         self.cmd_vel = Twist()
         self.slow_timer = None
         self.state = 'stop' # Initial state
@@ -174,24 +176,42 @@ class MoveLine(Node):
 
     def traffic_signs_callback(self, msg):
         sign = msg.data
-        if sign in ['give_way', 'construction'] and self.state != "wait":
-            self.get_logger().info(f'Detected: {sign} -> slow mode ON (timer restarted)')
-            self.state = 'move_slow'
-            self.restart_slow_timer()
-        elif sign == 'stop':
-            self.get_logger().info('Detected: STOP -> full stop, arrived to the end of the track')
-            self.state = 'finish'
-            # implement stop behavior 
+        if self.state == "wait" or self.timer_active:
+            pass
+        else:
+            if sign == "construction":
+                self.get_logger().info(f'Detected: {sign} -> slow mode ON (timer started)')
+                self.state = 'move_slow'
+                self.start_slow_timer(10)
+            elif sign == "give_way":
+                self.get_logger().info(f'Detected: {sign} -> slow mode ON (timer started)')
+                self.state = 'move_slow'
+                self.start_slow_timer(5)
+            elif sign == 'stop' and self.new_stop:
+                self.get_logger().info('Detected: STOP -> full stop, arrived to the end of the track')
+                self.new_stop = False
+                self.start_slow_timer(10)
+                self.start_stop_timer(20)
+                self.state = 'stop_sign' 
 
-    def restart_slow_timer(self):
+    def start_slow_timer(self, sec):
         if self.slow_timer is not None:
             self.slow_timer.cancel()
-        self.slow_timer = Timer(2.0, self.slow_timer_callback)
+        self.timer_active = True
+        self.slow_timer = Timer(sec, self.slow_timer_callback)
         self.slow_timer.start()
 
     def slow_timer_callback(self):
-        self.get_logger().info('No sign detected for 1s -> slow mode OFF')
+        self.get_logger().info('No sign detected -> slow mode OFF')
+        self.timer_active = False
         self.state = 'move'
+
+    def start_stop_timer(self, sec):
+        self.stop_timer = Timer(sec, self.stop_timer_callback)
+        self.stop_timer.start()
+
+    def stop_timer_callback(self):
+        self.new_stop = True
 
 
     def shutdown_function(self, signum, frame): 
@@ -307,7 +327,7 @@ class MoveLine(Node):
                 self.intersection_confirmation = False
             pass
 
-        elif self.state == 'finish':
+        elif self.state == 'stop_sign':
             self.cmd_vel.linear.x = 0.0
             self.cmd_vel.angular.z = 0.0
             self.pub.publish(self.cmd_vel)
@@ -386,8 +406,8 @@ class MoveLine(Node):
         blurred = cv2.GaussianBlur(grayimg, (5, 5), 0)
         # Apply a threshold
         #_, thresh = cv2.threshold(blurred, 120, 255, cv2.THRESH_BINARY_INV) # school
-        _, thresh = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY_INV) # school2
-        #_, thresh = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY_INV)
+        _, thresh = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY_INV) # school2 (Use this one)
+        #_, thresh = cv2.threshold(blurred, 80, 255, cv2.THRESH_BINARY_INV) # house
 
         # Apply morphological operations to remove noise
         thresh = cv2.erode(thresh, None, iterations=2)
@@ -428,7 +448,7 @@ class MoveLine(Node):
         # Apply Gaussian blur to the image
         blurred = cv2.GaussianBlur(grayimg, (5, 5), 0)
         # Apply a threshold
-        #_, thresh = cv2.threshold(blurred, 80, 255, cv2.THRESH_BINARY_INV)
+        #_, thresh = cv2.threshold(blurred, 80, 255, cv2.THRESH_BINARY_INV) # house
         _, thresh = cv2.threshold(blurred, 120, 255, cv2.THRESH_BINARY_INV) # School
 
         # Apply morphological operations to remove noise
@@ -476,7 +496,7 @@ class MoveLine(Node):
         blurred = cv2.GaussianBlur(grayimg, (5, 5), 0)
 
         # Apply a threshold 
-        #_, thresh = cv2.threshold(blurred, 60, 255, cv2.THRESH_BINARY_INV)
+        #_, thresh = cv2.threshold(blurred, 60, 255, cv2.THRESH_BINARY_INV) # house
         _, thresh = cv2.threshold(blurred, 80, 255, cv2.THRESH_BINARY_INV) # School
 
         # Apply morphological operations to remove noise
@@ -497,6 +517,7 @@ class MoveLine(Node):
             #cv2.circle(original_img, center, 2, (0, 255, 0), -1)
         else:
             x,y,w,h = (width // 2, height // 2, 0, 0)
+            
 
         return x, y, w, h
     
