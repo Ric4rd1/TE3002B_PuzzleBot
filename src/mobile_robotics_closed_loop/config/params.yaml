@@ -1,0 +1,24 @@
+point_generator:
+  ros__parameters:
+    use_sim_time: False
+    #point_1: [1.0, 1.0]
+    #point_2: [1.0, 2.0]
+    #point_3: [2.0, 1.0]
+    #point_4: [2.0, 2.0]
+    point_1: [1.0, 0.5]
+    point_2: [1.5, 1.5]
+    point_3: [2.0, 2.0]
+    point_4: [2.0, 1.0]
+
+move_points:
+  ros__parameters:
+    use_sim_time: False
+    linear_vel: 0.2
+    angular_vel: 0.6
+
+localization:
+  ros__parameters:
+    use_sim_time: False
+
+
+
