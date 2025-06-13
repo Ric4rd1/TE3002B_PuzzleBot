@@ -1,0 +1,12 @@
+odom:
+  ros__parameters:
+    use_sim_time: False
+
+move_points_traffic:
+  ros__parameters:
+    use_sim_time: False
+    linear_vel: 0.1
+    angular_vel: 1.5
+
+
+

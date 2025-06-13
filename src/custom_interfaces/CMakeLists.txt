@@ -25,9 +25,16 @@ endif()
 
 find_package(rosidl_default_generators REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(action_msgs REQUIRED)
+
+
+ament_export_dependencies(rosidl_default_runtime)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/PointsVel.msg"
+  "srv/ActivateNode.srv"
+  "action/ActivateIntersection.action"
+  DEPENDENCIES builtin_interfaces action_msgs
   DEPENDENCIES geometry_msgs 
  )
 
