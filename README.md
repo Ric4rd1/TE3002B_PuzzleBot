@@ -77,6 +77,26 @@ The code for Mini Challenge 4 is located in the `mobile_robotics_cv_line_tracker
 - **Line follower**: `move_line_traffic.launch.py`
 - Ran directly on the **Puzzlebot** to minimize camera lag and improve real-time performance.
 
+## Final challenge 🏁
+
+The final challenge implements all of the previous minichallenges, **vision-based line following** with **traffic light detection**, **traffic sign detection** and **intersection maneuvering**
+
+### Objectives
+- Follow a black line on a white surface using camera input.
+- React to LED traffic lights using a custom-trained YOLOv8 model
+	- **Green**: Move forward.
+	- **Yellow**: Slow down.
+	- **Red**: Stop.
+- React to traffic Signs using custom trained YOLOv8 model
+	- ** Right, Straight, Left ** directions ⬅️⬆️➡️: to move acordingly in intersections
+	- ** Caution, Stop, Give way** directions⚠️🛑🚧: slow down or stop
+- Detect intersections and act according to traffic lights and signs
+
+### Methodology
+- The same methodology for line following was used as the previous challenge
+- Custom neural networks where used for object detection of traffic lights and signs
+- Go 2 goal using odometry (encoders) aproach was used for moving on intersections
+
 ## Puzzlebot Hardware ⚙️
 
 The Puzzlebot system is powered by the following hardware components:
