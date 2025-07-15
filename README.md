@@ -9,6 +9,7 @@
 This repository contains the packages and resources for the **MCR2 course** developed by **Manchester Robotics Ltd. (MCR2)**. The course is designed to provide students with an understanding of modern autonomous systems, combining theory and practical challenges.
 
 ## Mini Challenge 1 🎯⚡
+#### 🎥[Video Link](https://drive.google.com/file/d/1wVKMqwvn5EAND5H07G1lQuohdTr_rPwj/view?usp=sharing)
 
 Mini Challenge 1 consists of two main tasks:
 
@@ -23,6 +24,7 @@ The code for Mini Challenge 1 is located in the `mobile_robotics` package, and c
 - **Custom Path Following**: `path_challenge.launch.py`
 
 ## Mini Challenge 2 🎯⚡
+#### 🎥[Video Link](https://drive.google.com/file/d/1sQrgKuxyGTh7qlWMnJJEpTJi8TXyb5x6/view?usp=sharing)
 
 Mini Challenge 2 builds upon the tasks from Mini Challenge 1 by incorporating **closed-loop control** using feedback from encoders. This challenge focuses on executing the same square and custom paths, but now using closed-loop velocity control and position estimation. The robot now uses velocity measurements from the **inner control loop** available on the topics `/VelocityEncL` and `/VelocityEncR`.
 
@@ -33,6 +35,7 @@ The implementation for Mini Challenge 2 is located in the `mobile_robotics_close
 - **Closed-Loop Custom Path**: `move_path.launch.py`
 
 ## Mini Challenge 3 🎯⚡
+#### 🎥[Video Link](https://drive.google.com/file/d/1X52T1fhW75T1G_6DVxZVCZMvHfgK_7GU/view?usp=sharing)
 
 Mini Challenge 3 focuses on **closed-loop point-to-point navigation enhanced with visual traffic light detection**. The robot must navigate to predefined points using improved odometry and control logic, while also reacting to **color-based traffic lights** detected via its camera.
 
@@ -54,6 +57,7 @@ The code for Mini Challenge 3 is located in the `mobile_robotics_cv` package, an
 - **Point 2 Point reacting to colors**: `move_traffic_points.launch.py`
 
 ## Mini Challenge 4 🎯⚡
+#### 🎥[Video Link](https://drive.google.com/file/d/1eKjnd2Q9a5Rks2hTrXPXeQjl1KMNvOAc/view?usp=sharing)
 
 Mini Challenge 4 integrates **vision-based line following** with **traffic light detection**, requiring the robot to navigate a predefined track while obeying LED-based traffic signals.
 
@@ -78,6 +82,7 @@ The code for Mini Challenge 4 is located in the `mobile_robotics_cv_line_tracker
 - Ran directly on the **Puzzlebot** to minimize camera lag and improve real-time performance.
 
 ## Final challenge 🏁
+#### 🎥[Video Link](https://drive.google.com/file/d/1CHFupGfjIkus1fNPz00tvlMVuwRiptf7/view?usp=sharing)
 
 The final challenge implements all of the previous minichallenges, **vision-based line following** with **traffic light detection**, **traffic sign detection** and **intersection maneuvering**
 
@@ -96,6 +101,10 @@ The final challenge implements all of the previous minichallenges, **vision-base
 - The same methodology for line following was used as the previous challenge
 - Custom neural networks where used for object detection of traffic lights and signs
 - Go 2 goal using odometry (encoders) aproach was used for moving on intersections
+
+## More Videos 🎥
+[LINK](https://drive.google.com/drive/folders/1_SqRldo4M0AQ8duqr3E6iTzbt0o8TAx1?usp=sharing)
+
 
 ## Puzzlebot Hardware ⚙️
 
